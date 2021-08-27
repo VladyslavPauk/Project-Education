@@ -15,8 +15,10 @@ public class StudentRepositoryImp implements StudentRepository {
     public List<Student> getAllStudents() {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
+        session.beginTransaction();
         Query query = session.createQuery("from Student");
         List<Student> studentList = query.list();
+        session.getTransaction().commit();
         session.close();
         return studentList;
     }
@@ -25,7 +27,9 @@ public class StudentRepositoryImp implements StudentRepository {
     public Student getStudent(int id) {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
+        session.beginTransaction();
         Student student = session.get(Student.class, id);
+        session.getTransaction().commit();
         session.close();
         return student;
     }
@@ -34,7 +38,9 @@ public class StudentRepositoryImp implements StudentRepository {
     public void deleteStudent(int id) {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
+        session.beginTransaction();
         session.delete(getStudent(id));
+        session.getTransaction().commit();
         session.close();
     }
 
@@ -42,7 +48,9 @@ public class StudentRepositoryImp implements StudentRepository {
     public void updateStudent(Student student) {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
+        session.beginTransaction();
         session.update(student);
+        session.getTransaction().commit();
         session.close();
     }
 
@@ -50,7 +58,9 @@ public class StudentRepositoryImp implements StudentRepository {
     public void setStudent(Student student) {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
+        session.beginTransaction();
         session.save(student);
+        session.getTransaction().commit();
         session.close();
     }
 }

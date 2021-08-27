@@ -3,15 +3,15 @@ package work.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "student")
+@Table
 public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column
     private int id;
 
-    @Column(name = "name")
+    @Column
     private String name;
 
      public Student() {

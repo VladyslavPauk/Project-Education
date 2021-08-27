@@ -14,31 +14,26 @@ public class StudentServiceImp implements StudentService{
     StudentRepositoryImp studentsRepositoryImp;
 
     @Override
-    @Transactional
     public List<Student> getAllStudents() {
        return studentsRepositoryImp.getAllStudents();
     }
 
     @Override
-    @Transactional
     public Student getStudent(int id) {
         return studentsRepositoryImp.getStudent(id);
     }
 
     @Override
-    @Transactional
     public void deleteStudent(int id) {
         studentsRepositoryImp.deleteStudent(id);
     }
 
     @Override
-    @Transactional
     public void updateStudent(Student student) {
         studentsRepositoryImp.updateStudent(student);
     }
 
     @Override
-    @Transactional
     public void setStudent(Student student) {
         studentsRepositoryImp.setStudent(student);
     }

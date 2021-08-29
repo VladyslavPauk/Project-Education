@@ -1,10 +1,12 @@
 package work.model;
 
 import javax.persistence.*;
+import java.util.List;
+
 
 @Entity
 @Table
-public class Student {
+public class University {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,9 +16,8 @@ public class Student {
     @Column
     private String name;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "university_id")
-    private University university;
+    @OneToMany(mappedBy = "university", fetch = FetchType.EAGER)
+    private List<Student> students;
 
     public int getId() {
         return id;
@@ -34,11 +35,11 @@ public class Student {
         this.name = name;
     }
 
-    public University getUniversity() {
-        return university;
+    public List<Student> getStudents() {
+        return students;
     }
 
-    public void setUniversity(University university) {
-        this.university = university;
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 }

@@ -16,42 +16,42 @@ public class StudentController {
     @GetMapping
     public String getAllStudents(Model model) {                       // get all student
         model.addAttribute("students", studentServiceImp.getAllStudents());
-        return "students";
+        return "student/students";
     }
 
     @GetMapping("/{id}")                                         // get one Student
     public String getStudent(@PathVariable("id") int id, Model model) {
         model.addAttribute("student", studentServiceImp.getStudent(id));
-        return "student";
+        return "student/student";
     }
 
     @GetMapping("/new")                                          // form for create student
     public String createStudent(Model model) {
         model.addAttribute("student", new Student());
-        return "createStudent";
+        return "student/createStudent";
     }
 
     @PostMapping()                                                // create student
     public String addStudent(@ModelAttribute("student") Student student) {
         studentServiceImp.setStudent(student);
-        return "redirect:/students";
+        return "student/students";
     }
 
     @DeleteMapping("/{id}")                                         // delete student
     public String deleteStudent(@PathVariable("id") int id) {
         studentServiceImp.deleteStudent(id);
-        return "redirect:/students";
+        return "student/students";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") int id, Model model) {      // form for update student
         model.addAttribute("studentToBeUpdate", studentServiceImp.getStudent(id));
-        return "updateStudent";
+        return "student/updateStudent";
     }
 
     @PatchMapping("/{id}")                                           // update student
     public String updateStudent(@ModelAttribute("student") Student student) {
         studentServiceImp.updateStudent(student);
-        return "redirect:/students";
+        return "student/students";
     }
 }

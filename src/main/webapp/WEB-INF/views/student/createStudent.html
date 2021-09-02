@@ -2,13 +2,22 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>create Student</title>
+    <title>Create Student</title>
 </head>
 <body>
-<form th:method="POST"  th:action="@{/students}" th:object="${student}">
-    <label for="name">Enter your name </label><input type="text" th:field="*{name}" id="name">
-    <label for="universityName">Enter your university name </label><input type="text" th:field="*{university}" id="universityName">
+<form th:method="POST"  th:action="@{/students}">
+    <label for="name">Enter your name </label><input type="text" name="name" id="name">
+<p>
+    <label for="id">Chose your univer name</label>
+    <select name="id" id="id">
+        <option disabled selected>Chose your univer name</option>
+        <option th:each="univer: ${universeList}"
+                th:value="${univer.getId()}"
+                th:text="${univer.getName()}"></option>
+    </select>
+    </p>
     <input type="submit" value="Create"/>
 </form>
+
 </body>
 </html>

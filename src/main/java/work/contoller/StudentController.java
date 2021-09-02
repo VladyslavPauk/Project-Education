@@ -5,13 +5,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import work.model.Student;
+import work.model.University;
 import work.service.StudentServiceImp;
+import work.service.UniversityServiceImp;
 
 @Controller
 @RequestMapping("/students")
 public class StudentController {
     @Autowired
     StudentServiceImp studentServiceImp;
+    @Autowired
+    UniversityServiceImp universityServiceImp;
 
     @GetMapping
     public String getAllStudents(Model model) {                       // get all student
@@ -27,20 +31,24 @@ public class StudentController {
 
     @GetMapping("/new")                                          // form for create student
     public String createStudent(Model model) {
-        model.addAttribute("student", new Student());
+        model.addAttribute("universeList", universityServiceImp.getAllUniversity());
         return "student/createStudent";
     }
 
     @PostMapping()                                                // create student
-    public String addStudent(@ModelAttribute("student") Student student) {
+    public String addStudent(@RequestParam("name") String name, @RequestParam("id") int id) {
+        University u = universityServiceImp.getUniversity(id);
+        Student student = new Student();
+        student.setName(name);
+        student.setUniversity(u);
         studentServiceImp.setStudent(student);
-        return "student/students";
+        return "redirect:/students";
     }
 
     @DeleteMapping("/{id}")                                         // delete student
     public String deleteStudent(@PathVariable("id") int id) {
         studentServiceImp.deleteStudent(id);
-        return "student/students";
+        return "redirect:/students";
     }
 
     @GetMapping("/{id}/edit")
@@ -52,6 +60,6 @@ public class StudentController {
     @PatchMapping("/{id}")                                           // update student
     public String updateStudent(@ModelAttribute("student") Student student) {
         studentServiceImp.updateStudent(student);
-        return "student/students";
+        return "redirect:/students";
     }
 }

@@ -7,7 +7,6 @@
 <body>
 <form th:method="PATCH" th:action="@{/students/{id}(id=${studentToBeUpdate.getId()})}" th:object="${studentToBeUpdate}">
     <label for="name"> enter your new name</label><input type="text" th:field="*{name}" id="name">
-    <label for="universityName">Enter your new university name</label><input type="text" th:field="*{university.getName()}" id="universityName">
     <input type="submit" value="update!">
 </form>
 </body>

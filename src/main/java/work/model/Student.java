@@ -14,7 +14,7 @@ public class Student {
     @Column
     private String name;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "university_id")
     private University university;
 

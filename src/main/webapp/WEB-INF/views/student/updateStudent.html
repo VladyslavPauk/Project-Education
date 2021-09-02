@@ -5,8 +5,16 @@
     <title>update</title>
 </head>
 <body>
-<form th:method="PATCH" th:action="@{/students/{id}(id=${studentToBeUpdate.getId()})}" th:object="${studentToBeUpdate}">
-    <label for="name"> enter your new name</label><input type="text" th:field="*{name}" id="name">
+<form th:method="PATCH" th:action="@{/students/{id}(id=${studentToBeUpdate.getId()})}">
+    <label for="name"> enter your new name</label><input type="text" name="name" id="name">
+    <p>
+        <label for="id"> Chose your new univer name</label>
+        <select name="id" id="id">
+            <option th:each="univer: ${universeList}"
+                    th:value="${univer.getId()}"
+                    th:text="${univer.getName()}"></option>
+        </select>
+    </p>
     <input type="submit" value="update!">
 </form>
 </body>

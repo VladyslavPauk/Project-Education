@@ -53,13 +53,18 @@ public class StudentController {
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") int id, Model model) {      // form for update student
-        model.addAttribute("studentToBeUpdate", studentServiceImp.getStudent(id));
+        model.addAttribute("universeList", universityServiceImp.getAllUniversity());
         return "student/updateStudent";
     }
 
     @PatchMapping("/{id}")                                           // update student
-    public String updateStudent(@ModelAttribute("student") Student student) {
-        studentServiceImp.updateStudent(student);
+    public String updateStudent(@RequestParam("id") int id, @RequestParam("name") String name, @PathVariable("id") int studentId) {
+        Student student = studentServiceImp.getStudent(studentId);
+        if(name != student.getName() || id != student.getUniversity().getId()) {
+            student.setName(name);
+            student.setUniversity(universityServiceImp.getUniversity(id));
+            studentServiceImp.updateStudent(student);
+        }
         return "redirect:/students";
     }
 }

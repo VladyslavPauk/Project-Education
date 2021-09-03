@@ -54,6 +54,7 @@ public class StudentController {
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") int id, Model model) {      // form for update student
         model.addAttribute("universeList", universityServiceImp.getAllUniversity());
+        model.addAttribute("studentToBeUpdate", studentServiceImp.getStudent(id));
         return "student/updateStudent";
     }
 

@@ -3,17 +3,19 @@ package work.repository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import work.configure.HibernateUtil;
 import work.model.University;
 
 import java.util.List;
 
 @Repository
 public class UniversityRepositoryImp implements UniversityRepository{
+    @Autowired
+    SessionFactory sessionFactory;
+
     @Override
     public List<University> getAllUniversity() {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Query query = session.createQuery("from University");
@@ -25,7 +27,6 @@ public class UniversityRepositoryImp implements UniversityRepository{
 
     @Override
     public University getUniversity(int id) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         University university = session.get(University.class, id);
@@ -36,7 +37,6 @@ public class UniversityRepositoryImp implements UniversityRepository{
 
     @Override
     public void deleteUniversity(int id) {
-    SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     Session session = sessionFactory.openSession();
     session.beginTransaction();
     session.delete(getUniversity(id));
@@ -46,7 +46,6 @@ public class UniversityRepositoryImp implements UniversityRepository{
 
     @Override
     public void updateSUniversity(University university) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.update(university);
@@ -56,7 +55,6 @@ public class UniversityRepositoryImp implements UniversityRepository{
 
     @Override
     public void setUniversity(University university) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.save(university);

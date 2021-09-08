@@ -1,15 +1,18 @@
 package work.configure;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
+@Order(1)
 public class MySpringMvcDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{HibernateConfig.class};
+        return new Class<?>[]{
+                HibernateConfig.class, SecurityConfig.class};
     }
 
     @Override

@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import work.model.Student;
-import work.model.University;
 import work.service.StudentServiceImp;
 import work.service.UniversityServiceImp;
 
@@ -29,22 +28,6 @@ public class StudentController {
         return "student/student";
     }
 
-    @GetMapping("/new")                                          // form for create student
-    public String createStudent(Model model) {
-        model.addAttribute("universeList", universityServiceImp.getAllUniversity());
-        return "student/createStudent";
-    }
-
-    @PostMapping()                                                // create student
-    public String addStudent(@RequestParam("name") String name, @RequestParam("id") int id) {
-        University u = universityServiceImp.getUniversity(id);
-        Student student = new Student();
-        student.setName(name);
-        student.setUniversity(u);
-        studentServiceImp.setStudent(student);
-        return "redirect:/students";
-    }
-
     @DeleteMapping("/{id}")                                         // delete student
     public String deleteStudent(@PathVariable("id") int id) {
         studentServiceImp.deleteStudent(id);
@@ -59,10 +42,12 @@ public class StudentController {
     }
 
     @PatchMapping("/{id}")                                           // update student
-    public String updateStudent(@RequestParam("id") int id, @RequestParam("name") String name, @PathVariable("id") int studentId) {
+    public String updateStudent(@RequestParam("id") int id, @RequestParam("name") String name,
+                                @RequestParam("password") String password, @PathVariable("id") int studentId) {
         Student student = studentServiceImp.getStudent(studentId);
-        if(name != student.getName() || id != student.getUniversity().getId()) {
+        if(name != student.getName() || id != student.getUniversity().getId() || password != student.getPassword()) {
             student.setName(name);
+            student.setPassword(password);
             student.setUniversity(universityServiceImp.getUniversity(id));
             studentServiceImp.updateStudent(student);
         }

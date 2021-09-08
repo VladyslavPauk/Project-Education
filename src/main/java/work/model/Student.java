@@ -14,9 +14,31 @@ public class Student {
     @Column
     private String name;
 
+    @Column
+    private String password;
+
+    @Column
+    private String email;
+
     @ManyToOne
     @JoinColumn(name = "university_id")
     private University university;
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public int getId() {
         return id;

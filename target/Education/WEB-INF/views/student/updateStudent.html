@@ -7,6 +7,7 @@
 <body>
 <form th:method="PATCH" th:action="@{/students/{id}(id=${studentToBeUpdate.getId()})}" th:object="${studentToBeUpdate}">
     <label for="name"> enter your new name</label><input type="text" name="name" id="name">
+    <label for="password">Enter your  new password </label><input type="password" name="password" id="password">
     <p>
         <label for="id"> Chose your new univer name</label>
         <select name="id" id="id">

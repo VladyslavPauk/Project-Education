@@ -9,18 +9,22 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-public class StudentServiceImp implements StudentService{
+public class StudentServiceImp implements StudentService {
     @Autowired
     StudentRepositoryImp studentsRepositoryImp;
 
     @Override
     public List<Student> getAllStudents() {
-       return studentsRepositoryImp.getAllStudents();
+        return studentsRepositoryImp.getAllStudents();
     }
 
     @Override
     public Student getStudent(int id) {
         return studentsRepositoryImp.getStudent(id);
+    }
+
+    public Student getStudent(String email) {
+        return studentsRepositoryImp.getStudent(email);
     }
 
     @Override

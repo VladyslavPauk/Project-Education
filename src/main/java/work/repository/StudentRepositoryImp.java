@@ -34,6 +34,21 @@ public class StudentRepositoryImp implements StudentRepository {
         return student;
     }
 
+    public Student getStudent(String email) {
+        Student student = null;
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Student where email = :email");
+        query.setParameter("email", email);
+        List<Student> list = query.list();
+        for (Student st: list) {
+            student = st;
+        }
+        session.getTransaction().commit();
+        session.close();
+        return student;
+    }
+
     @Override
     public void deleteStudent(int id) {
         Session session = sessionFactory.openSession();

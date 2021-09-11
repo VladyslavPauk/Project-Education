@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
@@ -12,6 +12,9 @@
     <br>
     <input type="submit" value="Login!"/>
 </form>
+    <div id="error" th:if="${error != null}">
+    Input is incorrect
+    </div>
 <a href="/signUp">Registration!</a>
 
 </body>

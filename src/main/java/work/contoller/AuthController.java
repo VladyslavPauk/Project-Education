@@ -15,6 +15,7 @@ import work.service.UniversityServiceImp;
 @Controller
 @RequestMapping()
 public class AuthController {
+
     @Autowired
     UniversityServiceImp universityServiceImp;
     @Autowired
@@ -40,7 +41,10 @@ public class AuthController {
     }
 
     @GetMapping("/login")                                               // form for login
-    public String login() {                                               // form for login
+    public String login(@RequestParam(value = "error", required = false) Boolean error, Model model) {
+        if(Boolean.TRUE.equals(error)) {
+            model.addAttribute("error", true);
+        }
         return "auth/login";
     }
 }

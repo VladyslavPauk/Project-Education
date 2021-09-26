@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import work.model.Student;
 import work.service.StudentServiceImp;
@@ -20,6 +21,9 @@ public class AuthProviderImpl implements AuthenticationProvider {
     @Autowired
     StudentServiceImp studentServiceImp;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String email = authentication.getName();
@@ -28,7 +32,7 @@ public class AuthProviderImpl implements AuthenticationProvider {
             throw new UsernameNotFoundException("student not found");
         }
         String password = authentication.getCredentials().toString();
-        if(!password.equals(student.getPassword())) {
+        if(!passwordEncoder.matches(password, student.getPassword())) {
             throw new BadCredentialsException("Bad credentials");
         }
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();

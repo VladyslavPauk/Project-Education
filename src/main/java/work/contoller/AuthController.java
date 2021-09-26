@@ -22,7 +22,7 @@ public class AuthController {
     StudentServiceImp studentServiceImp;
 
     @GetMapping("/signUp")
-    public String GetSignUp(Model model) {                                //form for create Student
+    public String getSignUp(Model model) {                                //form for create Student
         model.addAttribute("universeList", universityServiceImp.getAllUniversity());
         return "auth/signUp";
     }

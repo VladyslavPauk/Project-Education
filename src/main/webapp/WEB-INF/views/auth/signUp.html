@@ -15,7 +15,8 @@
             <option disabled selected>Chose your univer name</option>
             <option th:each="univer: ${universeList}"
                     th:value="${univer.getId()}"
-                    th:text="${univer.getName()}"></option>
+                    th:text="${univer.getName()}">
+            </option>
         </select>
     </p>
     <input type="submit" value="Create"/>

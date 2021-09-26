@@ -8,6 +8,7 @@
 <div th:each="student : ${students}">
     <a th:href="@{/students/{id}(id=${student.getId()})}" th:text="${student.getName()}">user</a>
 </div>
+<br>
 <a href="/logout">Logout!</a>
 </body>
 </html>

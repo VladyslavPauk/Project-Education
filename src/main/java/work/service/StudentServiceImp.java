@@ -1,6 +1,7 @@
 package work.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import work.model.Student;
 import work.repository.StudentRepositoryImp;
@@ -11,7 +12,10 @@ import java.util.List;
 @Service
 public class StudentServiceImp implements StudentService {
     @Autowired
-    StudentRepositoryImp studentsRepositoryImp;
+    private StudentRepositoryImp studentsRepositoryImp;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<Student> getAllStudents() {
@@ -39,6 +43,7 @@ public class StudentServiceImp implements StudentService {
 
     @Override
     public void setStudent(Student student) {
+        student.setPassword(passwordEncoder.encode(student.getPassword()));
         studentsRepositoryImp.setStudent(student);
     }
 }

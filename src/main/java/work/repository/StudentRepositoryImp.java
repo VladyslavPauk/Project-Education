@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public class StudentRepositoryImp implements StudentRepository {
     @Autowired
-    SessionFactory sessionFactory;
+    public SessionFactory sessionFactory;
 
     @Override
     public List<Student> getAllStudents() {

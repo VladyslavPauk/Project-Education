@@ -1,43 +1,27 @@
 package work.contoller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import work.model.Student;
-import work.model.University;
-import work.service.StudentServiceImp;
-import work.service.UniversityServiceImp;
 
 @Controller
 @RequestMapping()
 public class AuthController {
 
-    @Autowired
-    UniversityServiceImp universityServiceImp;
-    @Autowired
-    StudentServiceImp studentServiceImp;
-
     @GetMapping("/signUp")
-    public String getSignUp(Model model) {                                //form for create Student
-        model.addAttribute("universeList", universityServiceImp.getAllUniversity());
-        return "auth/signUp";
+    public String getSignUp() {                                //form for choose teacher or student
+        return "auth/choose";
     }
 
-    @PostMapping("/signUp")
-    public String signUp(@RequestParam("name") String name, @RequestParam("id") int id,
-                         @RequestParam("password") String password, @RequestParam("email") String email) {
-        University u = universityServiceImp.getUniversity(id);              // create student
-        Student student = new Student();
-        student.setName(name);
-        student.setPassword(password);
-        student.setUniversity(u);
-        student.setEmail(email);
-        studentServiceImp.setStudent(student);
-        return "redirect:/students";
+    @PostMapping("/signUp")                                 // choose who is who and redirect to create model
+    public String signUp(@RequestParam("id") int id) {
+        if(id == 1) {
+            return "redirect:/teacher/new";
+        }else
+        return "redirect:/student/new";
     }
 
     @GetMapping("/login")                                               // form for login

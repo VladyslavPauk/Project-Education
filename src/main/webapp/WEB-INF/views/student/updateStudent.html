@@ -5,15 +5,18 @@
     <title>update</title>
 </head>
 <body>
-<form th:method="PATCH" th:action="@{/students/{id}(id=${studentToBeUpdate.getId()})}" th:object="${studentToBeUpdate}">
+<form th:method="PATCH" th:action="@{/student/{id}(id=${studentToBeUpdate.getId()})}" th:object="${studentToBeUpdate}">
     <label for="name"> Enter your new name</label><input type="text" name="name" id="name">
+    <label for="surname"> Enter your new surname</label><input type="text" name="surname" id="surname">
+    <label for="email"> Enter your new email</label><input type="email" name="email" id="email">
     <label for="password">Enter your  new password </label><input type="password" name="password" id="password">
     <p>
-        <label for="id"> Chose your new univer name</label>
+        <label for="id"> Chose your new subgroup </label>
         <select name="id" id="id">
-            <option th:each="univer: ${universeList}"
-                    th:value="${univer.getId()}"
-                    th:text="${univer.getName()}"></option>
+            <option th:each="subgroup: ${subgroupList}"
+                    th:value="${subgroup.getId()}"
+                    th:text="${subgroup.getName()}">
+            </option>
         </select>
     </p>
     <input type="submit" value="update!">

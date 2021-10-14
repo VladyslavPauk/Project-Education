@@ -2,36 +2,29 @@ package work.model;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table
-public class Student {
+public class Teacher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
     private int id;
-
     @Column
     private String name;
-
-    @Column
-    private String password;
-
-    @Column
-    private String email;
-
     @Column
     private String surname;
-
-    @ManyToOne
-    @JoinColumn(name = "subgroup_id")
-    private Subgroup subgroup;
-
-    @OneToMany(mappedBy = "student")
+    @Column
+    private String email;
+    @Column
+    private String password;
+    @OneToMany(mappedBy = "teacher")
+    private List<Subgroup> subgroupList;
+    @OneToMany(mappedBy = "teacher")
+    private List<Lesson> lessonList;
+    @OneToMany(mappedBy = "teacher")
     private List<Grade> gradeList;
-
 
     public int getId() {
         return id;
@@ -49,12 +42,12 @@ public class Student {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getEmail() {
@@ -65,20 +58,28 @@ public class Student {
         this.email = email;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getPassword() {
+        return password;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public Subgroup getSubgroup() {
-        return subgroup;
+    public List<Subgroup> getSubgroupList() {
+        return subgroupList;
     }
 
-    public void setSubgroup(Subgroup subgroup) {
-        this.subgroup = subgroup;
+    public void setSubgroupList(List<Subgroup> subgroupList) {
+        this.subgroupList = subgroupList;
+    }
+
+    public List<Lesson> getLessonList() {
+        return lessonList;
+    }
+
+    public void setLessonList(List<Lesson> lessonList) {
+        this.lessonList = lessonList;
     }
 
     public List<Grade> getGradeList() {

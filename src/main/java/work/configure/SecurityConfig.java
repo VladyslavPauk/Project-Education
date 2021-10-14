@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/signUp", "/login").anonymous()
-                .antMatchers("/students", "/students/{id}", "/students/{id}/edit").authenticated()
+                .antMatchers("/student", "/student/{id}", "/student/{id}/edit").authenticated()
                 .and().csrf().disable()
                 .formLogin()
                 .loginPage("/login")
@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureUrl("/login?error=true")
                 .and()
                 .exceptionHandling()
-                .accessDeniedPage("/students")
+                .accessDeniedPage("/student")
                 .and().logout();
     }
 

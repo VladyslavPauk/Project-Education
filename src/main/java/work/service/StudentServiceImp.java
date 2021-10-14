@@ -5,17 +5,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import work.model.Student;
 import work.repository.StudentRepositoryImp;
-
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 public class StudentServiceImp implements StudentService {
     @Autowired
     private StudentRepositoryImp studentsRepositoryImp;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
+
 
     @Override
     public List<Student> getAllStudents() {
@@ -45,5 +43,10 @@ public class StudentServiceImp implements StudentService {
     public void setStudent(Student student) {
         student.setPassword(passwordEncoder.encode(student.getPassword()));
         studentsRepositoryImp.setStudent(student);
+    }
+
+    @Override
+    public List<Student> getAllStudentBySubgroupId(int subgroupId) {
+        return studentsRepositoryImp.getAllStudentBySubgroupId(subgroupId);
     }
 }

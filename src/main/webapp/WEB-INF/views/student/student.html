@@ -5,9 +5,10 @@
     <title>student</title>
 </head>
 <body>
-<p th:text="${student.getId()}">value</p>
-<p th:text="${student.getName()}">value</p>
-<p th:text="${student.getSubgroup().getName()}">value</p>
+<p th:text="id + ${student.getId()}">value</p>
+<p th:text="name + ${student.getName()}">value</p>
+<br>
+<a th:href="@{/subgroup/{id}(id=${student.getSubgroup.getId()})}" th:text="group + ${student.getSubgroup().getName()}">group</a>
 <br>
 <a th:href="@{/student/{id}/edit(id=${student.getId()})}">update student</a>
 <br>

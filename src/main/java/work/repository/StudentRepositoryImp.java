@@ -48,7 +48,17 @@ public class StudentRepositoryImp implements StudentRepository {
         session.close();
         return student;
     }
-
+    @Override
+    public List<Student> getAllStudentBySubgroupId(int subgroupId) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Student as student where student.subgroup.id =:subgroupId");
+        query.setParameter("subgroupId", subgroupId);
+        List<Student> list = query.list();
+        session.getTransaction().commit();
+        session.close();
+        return list;
+    }
     @Override
     public void deleteStudent(int id) {
         Session session = sessionFactory.openSession();

@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@Configuration
 @EnableWebSecurity
 @ComponentScan("work.configure")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -22,17 +21,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/signUp", "/login").anonymous()
-                .antMatchers("/student", "/student/{id}", "/student/{id}/edit").authenticated()
+                .antMatchers("/signUp", "/login", "/student/new", "/teacher/new").anonymous()
+                .antMatchers("/student/{id}", "/student", "/student/{id}/edit").authenticated()
                 .and().csrf().disable()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login/process")
                 .usernameParameter("email")
                 .failureUrl("/login?error=true")
-                .and()
-                .exceptionHandling()
-                .accessDeniedPage("/student")
                 .and().logout();
     }
 

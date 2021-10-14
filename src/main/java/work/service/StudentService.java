@@ -10,4 +10,5 @@ public interface StudentService {
     public void deleteStudent(int id);
     public void updateStudent(Student student);
     public void setStudent(Student student);
+    public List<Student> getAllStudentBySubgroupId(int subgroupId);
 }

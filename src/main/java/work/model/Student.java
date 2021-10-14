@@ -32,7 +32,6 @@ public class Student {
     @OneToMany(mappedBy = "student")
     private List<Grade> gradeList;
 
-
     public int getId() {
         return id;
     }

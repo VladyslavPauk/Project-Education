@@ -35,4 +35,16 @@ public class SubgroupRepositoryImp implements SubgroupRepository {
         session.close();
         return subgroupList;
     }
+
+    @Override
+    public List<Subgroup> getAllSubgroupByTeacherId(int teacherId) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Subgroup as subgroup where subgroup.teacher.id =:teacherId");
+        query.setParameter("teacherId",teacherId);
+        List<Subgroup> subgroupList = query.list();
+        session.getTransaction().commit();
+        session.close();
+        return subgroupList;
+    }
 }

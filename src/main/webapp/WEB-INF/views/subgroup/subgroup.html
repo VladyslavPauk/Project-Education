@@ -7,8 +7,10 @@
 <body>
     <p th:text="name + ${subgroup.getName()}">name</p>
     <p th:text="quantity + ${subgroup.getQuantity()}">quantity</p>
+    <a th:href="@{/teacher/{id}(id=${subgroup.getTeacher.getId()})}" th:text="curator + ${subgroup.getTeacher.getName()} + ${subgroup.getTeacher.getSurname()}">teacher></a>
+    <p> ir is all student in group</p>
     <div th:each="student : ${studentList}">
-        <a th:href="@{/student/{id}(id=${student.getId()})}" th:text="${student.getName()}">user</a>
+        <a th:href="@{/student/{id}(id=${student.getId()})}" th:text="${student.getName()}">student</a>
     </div>
 </body>
 </html>

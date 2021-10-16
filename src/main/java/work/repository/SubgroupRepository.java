@@ -7,4 +7,5 @@ import java.util.List;
 public interface SubgroupRepository {
     public Subgroup getSubgroupById(int id);
     public List<Subgroup> getAllSubgroup();
+    public List<Subgroup> getAllSubgroupByTeacherId(int teacherId);
 }

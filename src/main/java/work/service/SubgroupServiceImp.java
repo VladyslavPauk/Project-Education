@@ -22,4 +22,9 @@ public class SubgroupServiceImp implements SubgroupService {
     public List<Subgroup> getAllSubgroup() {
         return groupRepositoryImp.getAllSubgroup();
     }
+
+    @Override
+    public List<Subgroup> getAllSubgroupByTeacherId(int teacherId) {
+        return groupRepositoryImp.getAllSubgroupByTeacherId(teacherId);
+    }
 }

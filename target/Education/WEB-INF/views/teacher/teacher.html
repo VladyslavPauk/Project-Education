@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>teacher</title>
+</head>
+<body>
+<p th:text="name + ${teacher.getName()}">name</p>
+<p th:text="surname + ${teacher.getSurname()}">surname</p>
+<br>
+<p>it is all my group</p>
+<div th:each="subgroup : ${subgroupList}">
+    <a th:href="@{/subgroup/{id}(id=${subgroup.getId()})}" th:text="${subgroup.getName()}">subgroup</a>
+</div>
+</body>
+</html>

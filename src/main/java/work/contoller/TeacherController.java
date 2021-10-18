@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import work.model.Grade;
-import work.model.Lesson;
-import work.model.Subgroup;
-import work.model.Teacher;
+import work.model.*;
 import work.service.SubgroupServiceImp;
 import work.service.TeacherServiceImp;
 
@@ -25,7 +22,7 @@ public class TeacherController {
     @GetMapping("/{id}")
     public String getTeacherById(@PathVariable("id") int id, Model model) {
         model.addAttribute("teacher", teacherServiceImp.getTeacherById(id));
-        model.addAttribute("subgroupList", subgroupServiceImp.getAllSubgroupByTeacherId(id));
+        model.addAttribute("subgroupList", teacherServiceImp.getTeacherById(id).getSubgroupList());
         return "teacher/teacher";
     }
 
@@ -36,7 +33,7 @@ public class TeacherController {
         return "/teacher/new";
     }
 
-    @PostMapping("/new")
+    @PostMapping("/new")                                                // create teacher
     public String saveTeacher(@ModelAttribute("teacher") Teacher teacher, @RequestParam("subgroups") int[] subgroupsId) {
         List<Subgroup> subgroupList = new ArrayList<>();
         for (int i : subgroupsId) {
@@ -47,6 +44,33 @@ public class TeacherController {
         teacher.setLessonList(new ArrayList<Lesson>());
         teacherServiceImp.saveTeacher(teacher);
         return "redirect:/login";
+    }
+
+    @DeleteMapping("/{id}")                                  //delete teacher
+    public String deleteTeacher(@PathVariable("id") int id) {
+        teacherServiceImp.deleteTeacher(teacherServiceImp.getTeacherById(id));
+        return "redirect:/login";
+    }
+
+    @GetMapping("/{id}/edit")                                 //form for update teacher
+    public String edit(@PathVariable("id") int id, Model model) {
+        model.addAttribute("teacherToBeUpdate", teacherServiceImp.getTeacherById(id));
+        model.addAttribute("subgroupList", subgroupServiceImp.getAllSubgroup());
+        return "/teacher/updateTeacher";
+    }
+
+    @PatchMapping("/{id}")                                           // update student
+    public String updateTeacher(@RequestParam("name") String name, @RequestParam("surname") String surname,
+                                @RequestParam("email") String email, @RequestParam("password") String password,
+                                @PathVariable("id") int teacherId, Model model) {
+        Teacher teacher = teacherServiceImp.getTeacherById(teacherId);
+        teacher.setName(name);
+        teacher.setSurname(surname);
+        teacher.setPassword(password);
+        teacher.setEmail(email);
+        teacherServiceImp.updateTeacher(teacher);
+        model.addAttribute("teacher", teacherServiceImp.getTeacherById(teacherId));
+        return "teacher/teacher";
     }
 }
 

@@ -10,7 +10,7 @@ import work.model.Teacher;
 import java.util.List;
 
 @Repository
-public class TeacherRepositoryImp implements TeacherRepository{
+public class TeacherRepositoryImp implements TeacherRepository {
     @Autowired
     public SessionFactory sessionFactory;
 
@@ -29,6 +29,24 @@ public class TeacherRepositoryImp implements TeacherRepository{
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.save(teacher);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public void deleteTeacher(Teacher teacher) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.delete(teacher);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public void updateTeacher(Teacher teacher) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.update(teacher);
         session.getTransaction().commit();
         session.close();
     }

@@ -29,7 +29,7 @@ public class Student {
     @JoinColumn(name = "subgroup_id")
     private Subgroup subgroup;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
     private List<Grade> gradeList;
 
     public int getId() {

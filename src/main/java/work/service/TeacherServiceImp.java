@@ -5,10 +5,9 @@ import org.springframework.stereotype.Service;
 import work.model.Teacher;
 import work.repository.TeacherRepositoryImp;
 
-import java.util.List;
 
 @Service
-public class TeacherServiceImp implements TeacherService{
+public class TeacherServiceImp implements TeacherService {
     @Autowired
     private TeacherRepositoryImp teacherRepositoryImp;
 
@@ -20,6 +19,16 @@ public class TeacherServiceImp implements TeacherService{
     @Override
     public void saveTeacher(Teacher teacher) {
         teacherRepositoryImp.saveTeacher(teacher);
+    }
+
+    @Override
+    public void deleteTeacher(Teacher teacher) {
+        teacherRepositoryImp.deleteTeacher(teacher);
+    }
+
+    @Override
+    public void updateTeacher(Teacher teacher) {
+        teacherRepositoryImp.updateTeacher(teacher);
     }
 
 }

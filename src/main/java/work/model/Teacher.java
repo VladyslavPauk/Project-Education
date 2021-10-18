@@ -19,11 +19,11 @@ public class Teacher {
     private String email;
     @Column
     private String password;
-    @OneToMany(mappedBy = "teacher")
+    @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER)
     private List<Subgroup> subgroupList;
-    @OneToMany(mappedBy = "teacher")
+    @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER)
     private List<Lesson> lessonList;
-    @OneToMany(mappedBy = "teacher")
+    @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER)
     private List<Grade> gradeList;
 
     public int getId() {

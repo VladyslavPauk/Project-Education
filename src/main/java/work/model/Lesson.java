@@ -15,14 +15,15 @@ public class Lesson {
     @Column
     private String name;
 
-    @OneToMany(mappedBy = "lesson")
-    private List<Subgroup> subgroupList;
+    @ManyToOne
+    @JoinColumn(name = "subgroup_id")
+    private Subgroup subgroup;
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
-    @OneToMany(mappedBy = "lesson")
+    @OneToMany(mappedBy = "lesson", fetch = FetchType.EAGER)
     private List<Grade> gradeList;
 
     public int getId() {
@@ -41,12 +42,12 @@ public class Lesson {
         this.name = name;
     }
 
-    public List<Subgroup> getSubgroupList() {
-        return subgroupList;
+    public Subgroup getSubgroup() {
+        return subgroup;
     }
 
-    public void setSubgroupList(List<Subgroup> subgroupList) {
-        this.subgroupList = subgroupList;
+    public void setSubgroup(Subgroup subgroup) {
+        this.subgroup = subgroup;
     }
 
     public Teacher getTeacher() {

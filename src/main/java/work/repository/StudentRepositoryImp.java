@@ -5,8 +5,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import work.model.Grade;
 import work.model.Student;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class StudentRepositoryImp implements StudentRepository {
@@ -41,24 +46,14 @@ public class StudentRepositoryImp implements StudentRepository {
         Query query = session.createQuery("from Student where email = :email");
         query.setParameter("email", email);
         List<Student> list = query.list();
-        for (Student st: list) {
+        for (Student st : list) {
             student = st;
         }
         session.getTransaction().commit();
         session.close();
         return student;
     }
-    @Override
-    public List<Student> getAllStudentBySubgroupId(int subgroupId) {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        Query query = session.createQuery("from Student as student where student.subgroup.id =:subgroupId");
-        query.setParameter("subgroupId", subgroupId);
-        List<Student> list = query.list();
-        session.getTransaction().commit();
-        session.close();
-        return list;
-    }
+
     @Override
     public void deleteStudent(int id) {
         Session session = sessionFactory.openSession();
@@ -85,4 +80,5 @@ public class StudentRepositoryImp implements StudentRepository {
         session.getTransaction().commit();
         session.close();
     }
+
 }

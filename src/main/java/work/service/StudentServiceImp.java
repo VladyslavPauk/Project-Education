@@ -3,9 +3,14 @@ package work.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import work.model.Grade;
 import work.model.Student;
 import work.repository.StudentRepositoryImp;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class StudentServiceImp implements StudentService {
@@ -45,8 +50,17 @@ public class StudentServiceImp implements StudentService {
         studentsRepositoryImp.setStudent(student);
     }
 
-    @Override
-    public List<Student> getAllStudentBySubgroupId(int subgroupId) {
-        return studentsRepositoryImp.getAllStudentBySubgroupId(subgroupId);
+    public Map<String, List<Grade>> getLessonGradeList(List<Grade> grades) {
+        Map<String, List<Grade>> lessonGradeList = new HashMap<>();
+        List<Grade> gradeList = new ArrayList<>();
+        for(Grade grade: grades) {
+            if(!lessonGradeList.containsKey(grade.getLesson().getName())) {
+                gradeList.add(grade);
+                lessonGradeList.put(grade.getLesson().getName(),gradeList);
+            } else
+                lessonGradeList.get(grade.getLesson().getName()).add(grade);
+        }
+        return lessonGradeList;
     }
+
 }

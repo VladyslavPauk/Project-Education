@@ -18,15 +18,15 @@ public class AuthController {
 
     @PostMapping("/signUp")                                 // choose who is who and redirect to create model
     public String signUp(@RequestParam("id") int id) {
-        if(id == 1) {
+        if (id == 1) {
             return "redirect:/teacher/new";
-        }else
-        return "redirect:/student/new";
+        } else
+            return "redirect:/student/new";
     }
 
     @GetMapping("/login")                                               // form for login
     public String login(@RequestParam(value = "error", required = false) Boolean error, Model model) {
-        if(Boolean.TRUE.equals(error)) {
+        if (Boolean.TRUE.equals(error)) {
             model.addAttribute("error", true);
         }
         return "auth/login";

@@ -12,5 +12,12 @@
 <div th:each="subgroup : ${subgroupList}">
     <a th:href="@{/subgroup/{id}(id=${subgroup.getId()})}" th:text="${subgroup.getName()}">subgroup</a>
 </div>
+<br>
+<a th:href="@{/teacher/{id}/edit(id=${teacher.getId()})}">update teacher</a>
+<form th:method="DELETE" th:action="@{/teacher/{id}(id=${teacher.getId()})}">
+    <input type="submit" value="delete">
+</form>
+<a href="/logout">Logout!</a>
+
 </body>
 </html>

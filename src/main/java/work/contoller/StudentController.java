@@ -6,12 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import work.model.Grade;
+import work.model.Lesson;
 import work.model.Subgroup;
 import work.model.Student;
 import work.service.SubgroupServiceImp;
 import work.service.StudentServiceImp;
-
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/student")
@@ -47,7 +48,12 @@ public class StudentController {
 
     @GetMapping("/{id}")                                         // get one Student
     public String getStudent(@PathVariable("id") int id, Model model) {
-        model.addAttribute("student", studentServiceImp.getStudent(id));
+        Student student = studentServiceImp.getStudent(id);
+        List<Lesson> lessonList = student.getSubgroup().getLessonList();
+        model.addAttribute("lessonList", lessonList);
+        model.addAttribute("student",student);
+        List<Grade> list = student.getGradeList();
+        model.addAttribute("map", studentServiceImp.getLessonGradeList(list));
         return "student/student";
     }
 
@@ -64,22 +70,13 @@ public class StudentController {
         return "student/updateStudent";
     }
 
-    @PatchMapping("/{id}")                                           // update student
-    public String updateStudent(@RequestParam("name") String name, @RequestParam("surname") String surname,
-                                @RequestParam("email") String email, @RequestParam("password") String password,
-                                @RequestParam("id") int subgroupId, @PathVariable("id") int studentId, Model model) {
-        Student student = studentServiceImp.getStudent(studentId);
-        if (name != student.getName() || surname != student.getSurname() ||
-                email != student.getEmail() || password != student.getPassword() ||
-                student.getSubgroup().getId() != subgroupId) {
-            student.setName(name);
-            student.setSurname(surname);
-            student.setPassword(passwordEncoder.encode(password));
-            student.setEmail(email);
-            student.setSubgroup(subgroupServiceImp.getSubgroupById(subgroupId));
-        }
-        studentServiceImp.updateStudent(student);
-        model.addAttribute("student", studentServiceImp.getStudent(studentId));
+    @PutMapping("/{id}")
+    public String updateStudent (@ModelAttribute Student student, @PathVariable("id") int studentId, @RequestParam("id") int groupId, Model model) {
+         Subgroup subgroup = subgroupServiceImp.getSubgroupById(groupId);
+         student.setId(studentId);
+         student.setSubgroup(subgroup);
+         studentServiceImp.updateStudent(student);
+         model.addAttribute("student", student);
         return "student/student";
     }
 }

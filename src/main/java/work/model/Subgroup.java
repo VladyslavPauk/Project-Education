@@ -19,24 +19,23 @@ public class Subgroup {
     @Column
     private int quantity;
 
-    @OneToMany(mappedBy = "subgroup")
+    @OneToMany(mappedBy = "subgroup", fetch = FetchType.EAGER)
     private List<Student> studentList;
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
-    @ManyToOne
-    @JoinColumn(name = "lesson_id")
-    private Lesson lesson;
+    @OneToMany(mappedBy = "subgroup", fetch = FetchType.EAGER)
+    private List<Lesson> lessonList;
 
 
-    public Lesson getLesson() {
-        return lesson;
+    public List<Lesson> getLessonList() {
+        return lessonList;
     }
 
-    public void setLesson(Lesson lesson) {
-        this.lesson = lesson;
+    public void setLessonList(List<Lesson> lessonList) {
+        this.lessonList = lessonList;
     }
 
     public Teacher getTeacher() {

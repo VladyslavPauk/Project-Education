@@ -24,6 +24,11 @@ public class Grade {
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
+    @Override
+    public String toString() {
+        return " " + value;
+    }
+
     public int getId() {
         return id;
     }

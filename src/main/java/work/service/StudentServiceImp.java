@@ -7,10 +7,7 @@ import work.model.Grade;
 import work.model.Student;
 import work.repository.StudentRepositoryImp;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class StudentServiceImp implements StudentService {
@@ -50,17 +47,35 @@ public class StudentServiceImp implements StudentService {
         studentsRepositoryImp.setStudent(student);
     }
 
-    public Map<String, List<Grade>> getLessonGradeList(List<Grade> grades) {
+    public Map<String, List<Grade>> getMapLessonGrade(Set<Grade> grades) {
         Map<String, List<Grade>> lessonGradeList = new HashMap<>();
-        List<Grade> gradeList = new ArrayList<>();
-        for(Grade grade: grades) {
-            if(!lessonGradeList.containsKey(grade.getLesson().getName())) {
-                gradeList.add(grade);
-                lessonGradeList.put(grade.getLesson().getName(),gradeList);
-            } else
+        for (Grade grade : grades) {
+            if (lessonGradeList.containsKey(grade.getLesson().getName())) {
                 lessonGradeList.get(grade.getLesson().getName()).add(grade);
+            } else {
+                List<Grade> gradeList = new ArrayList<>();
+                gradeList.add(grade);
+                lessonGradeList.put(grade.getLesson().getName(), gradeList);
+            }
         }
         return lessonGradeList;
     }
 
+    public Map<String, Double> getMapLessonAverageGrade(Map<String, List<Grade>> mapLessonGrade) {
+        Map<String, Double> mapLessonAverageGrade = new HashMap<>();
+
+        for (Map.Entry<String, List<Grade>> map : mapLessonGrade.entrySet()) {
+            double averageGrade = 0;
+            String lessonName = map.getKey();
+            List<Grade> gradeList = map.getValue();
+
+            double sum = 0;
+            for (Grade grade : gradeList) {
+                sum = sum + grade.getValue();
+            }
+            averageGrade = sum / gradeList.size();
+            mapLessonAverageGrade.put(lessonName, averageGrade);
+        }
+        return mapLessonAverageGrade;
+    }
 }

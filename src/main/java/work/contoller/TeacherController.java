@@ -9,7 +9,9 @@ import work.service.SubgroupServiceImp;
 import work.service.TeacherServiceImp;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/teacher")
@@ -22,7 +24,7 @@ public class TeacherController {
     @GetMapping("/{id}")
     public String getTeacherById(@PathVariable("id") int id, Model model) {
         model.addAttribute("teacher", teacherServiceImp.getTeacherById(id));
-        model.addAttribute("subgroupList", teacherServiceImp.getTeacherById(id).getSubgroupList());
+        model.addAttribute("subgroupSet", teacherServiceImp.getTeacherById(id).getSubgroupSet());
         return "teacher/teacher";
     }
 
@@ -35,11 +37,11 @@ public class TeacherController {
 
     @PostMapping("/new")                                                // create teacher
     public String saveTeacher(@ModelAttribute("teacher") Teacher teacher, @RequestParam("subgroups") int[] subgroupsId) {
-        List<Subgroup> subgroupList = new ArrayList<>();
+        Set<Subgroup> subgroupSet = new HashSet<>();
         for (int i : subgroupsId) {
-            subgroupList.add(subgroupServiceImp.getSubgroupById(i));
+            subgroupSet.add(subgroupServiceImp.getSubgroupById(i));
         }
-        teacher.setSubgroupList(subgroupList);
+        teacher.setSubgroupSet(subgroupSet);
         teacher.setGradeList(new ArrayList<Grade>());
         teacher.setLessonList(new ArrayList<Lesson>());
         teacherServiceImp.saveTeacher(teacher);
@@ -52,7 +54,7 @@ public class TeacherController {
         return "redirect:/login";
     }
 
-    @GetMapping("/{id}/edit")                                 //form for update teacher
+    @GetMapping("/{id}/edit")                                      //form for update teacher
     public String edit(@PathVariable("id") int id, Model model) {
         model.addAttribute("teacherToBeUpdate", teacherServiceImp.getTeacherById(id));
         model.addAttribute("subgroupList", subgroupServiceImp.getAllSubgroup());

@@ -2,6 +2,7 @@ package work.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table
@@ -20,7 +21,7 @@ public class Teacher {
     @Column
     private String password;
     @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER)
-    private List<Subgroup> subgroupList;
+    private Set<Subgroup> subgroupSet;
     @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER)
     private List<Lesson> lessonList;
     @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER)
@@ -66,12 +67,12 @@ public class Teacher {
         this.password = password;
     }
 
-    public List<Subgroup> getSubgroupList() {
-        return subgroupList;
+    public Set<Subgroup> getSubgroupSet() {
+        return subgroupSet;
     }
 
-    public void setSubgroupList(List<Subgroup> subgroupList) {
-        this.subgroupList = subgroupList;
+    public void setSubgroupSet(Set<Subgroup> subgroupSet) {
+        this.subgroupSet = subgroupSet;
     }
 
     public List<Lesson> getLessonList() {

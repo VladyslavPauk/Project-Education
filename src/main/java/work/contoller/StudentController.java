@@ -6,12 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import work.model.Grade;
-import work.model.Lesson;
 import work.model.Subgroup;
 import work.model.Student;
 import work.service.SubgroupServiceImp;
 import work.service.StudentServiceImp;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -35,7 +35,7 @@ public class StudentController {
     public String setStudent(@ModelAttribute("student") Student student, @RequestParam("id") int groupId) {
         Subgroup subgroup = subgroupServiceImp.getSubgroupById(groupId);
         student.setSubgroup(subgroup);
-        student.setGradeList(new ArrayList<Grade>());
+        student.setGradeSet(new HashSet<Grade>());
         studentServiceImp.setStudent(student);
         return "redirect:/login";
     }
@@ -49,11 +49,9 @@ public class StudentController {
     @GetMapping("/{id}")                                         // get one Student
     public String getStudent(@PathVariable("id") int id, Model model) {
         Student student = studentServiceImp.getStudent(id);
-        List<Lesson> lessonList = student.getSubgroup().getLessonList();
-        model.addAttribute("lessonList", lessonList);
         model.addAttribute("student",student);
-        List<Grade> list = student.getGradeList();
-        model.addAttribute("map", studentServiceImp.getLessonGradeList(list));
+        model.addAttribute("map", studentServiceImp.getMapLessonGrade(student.getGradeSet()));
+        model.addAttribute("averageMap",studentServiceImp.getMapLessonAverageGrade(studentServiceImp.getMapLessonGrade(student.getGradeSet())));
         return "student/student";
     }
 

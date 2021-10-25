@@ -22,6 +22,12 @@
     </li>
 </div>
 <br>
+<div>
+    <li th:each="entry: ${averageMap}">
+        <span th:text="${entry.key}"></span> = <span th:text="${entry.value}"></span>
+    </li>
+</div>
+<br>
 <form th:method="DELETE" th:action="@{/student/{id}(id=${student.getId()})}">
         <input type="submit" value="delete">
 </form>

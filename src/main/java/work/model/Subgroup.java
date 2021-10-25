@@ -2,6 +2,7 @@ package work.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -20,7 +21,7 @@ public class Subgroup {
     private int quantity;
 
     @OneToMany(mappedBy = "subgroup", fetch = FetchType.EAGER)
-    private List<Student> studentList;
+    private Set<Student> studentSet;
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")
@@ -70,11 +71,11 @@ public class Subgroup {
         this.quantity = quantity;
     }
 
-    public List<Student> getStudentList() {
-        return studentList;
+    public Set<Student> getStudentSet() {
+        return studentSet;
     }
 
-    public void setStudentList(List<Student> studentList) {
-        this.studentList = studentList;
+    public void setStudentSet(Set<Student> studentSet) {
+        this.studentSet = studentSet;
     }
 }

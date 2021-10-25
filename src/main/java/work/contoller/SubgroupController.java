@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import work.model.Subgroup;
-import work.service.StudentServiceImp;
 import work.service.SubgroupServiceImp;
 
 
@@ -21,7 +20,7 @@ public class SubgroupController {
     public String getSubgroupById(@PathVariable("id") int id, Model model) {
         Subgroup subgroup = subgroupServiceImp.getSubgroupById(id);
         model.addAttribute("subgroup", subgroup);
-        model.addAttribute("studentList", subgroup.getStudentList());
+        model.addAttribute("studentSet", subgroup.getStudentSet());
         return "subgroup/subgroup";
     }
     @GetMapping

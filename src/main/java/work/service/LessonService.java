@@ -4,6 +4,6 @@ import work.model.Lesson;
 
 import java.util.List;
 
-public interface LessonRepository {
-    List<Lesson> lessonList();
+public interface LessonService {
+    Lesson getLessonById(int id);
 }

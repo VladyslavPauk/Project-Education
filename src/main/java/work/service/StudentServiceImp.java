@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import work.model.Grade;
+import work.model.Lesson;
 import work.model.Student;
+import work.model.Subgroup;
 import work.repository.StudentRepositoryImp;
 
 import java.util.*;
@@ -77,5 +79,14 @@ public class StudentServiceImp implements StudentService {
             mapLessonAverageGrade.put(lessonName, averageGrade);
         }
         return mapLessonAverageGrade;
+    }
+
+    public Map<Student, Set<Grade>> getStudentGradeSetMap(Subgroup subgroup, Lesson lesson) {
+        Map<Student, Set<Grade>> studentGradeSetMap = new HashMap<>();
+        Set<Student> studentSet = subgroup.getStudentSet();
+        for(Student student : studentSet) {
+            studentGradeSetMap.put(student, lesson.getGradeSet());
+        }
+        return studentGradeSetMap;
     }
 }

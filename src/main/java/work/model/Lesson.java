@@ -2,6 +2,7 @@ package work.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table
@@ -24,7 +25,7 @@ public class Lesson {
     private Teacher teacher;
 
     @OneToMany(mappedBy = "lesson", fetch = FetchType.EAGER)
-    private List<Grade> gradeList;
+    private Set<Grade> gradeSet;
 
     public int getId() {
         return id;
@@ -58,11 +59,11 @@ public class Lesson {
         this.teacher = teacher;
     }
 
-    public List<Grade> getGradeList() {
-        return gradeList;
+    public Set<Grade> getGradeSet() {
+        return gradeSet;
     }
 
-    public void setGradeList(List<Grade> gradeList) {
-        this.gradeList = gradeList;
+    public void setGradeSet(Set<Grade> gradeSet) {
+        this.gradeSet = gradeSet;
     }
 }

@@ -23,7 +23,7 @@ public class TeacherController {
     public String getTeacherById(@PathVariable("id") int id, Model model) {
         Teacher teacher = teacherServiceImp.getTeacherById(id);
         model.addAttribute("teacher", teacher);
-        model.addAttribute("subgroupLessonListMap", teacherServiceImp.getSubgroupLessonSetMap(teacher.getSubgroupSet()));
+        model.addAttribute("subgroupLessonSetMap", teacherServiceImp.getSubgroupLessonSetMap(teacher.getSubgroupSet()));
         return "teacher/teacher";
     }
 

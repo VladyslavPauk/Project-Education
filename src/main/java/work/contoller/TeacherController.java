@@ -7,10 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import work.model.*;
 import work.service.SubgroupServiceImp;
 import work.service.TeacherServiceImp;
-
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -23,8 +21,9 @@ public class TeacherController {
 
     @GetMapping("/{id}")
     public String getTeacherById(@PathVariable("id") int id, Model model) {
-        model.addAttribute("teacher", teacherServiceImp.getTeacherById(id));
-        model.addAttribute("subgroupSet", teacherServiceImp.getTeacherById(id).getSubgroupSet());
+        Teacher teacher = teacherServiceImp.getTeacherById(id);
+        model.addAttribute("teacher", teacher);
+        model.addAttribute("subgroupLessonListMap", teacherServiceImp.getSubgroupLessonSetMap(teacher.getSubgroupSet()));
         return "teacher/teacher";
     }
 
@@ -48,13 +47,13 @@ public class TeacherController {
         return "redirect:/login";
     }
 
-    @DeleteMapping("/{id}")                                  //delete teacher
+    @DeleteMapping("/{id}")                                             //delete teacher
     public String deleteTeacher(@PathVariable("id") int id) {
         teacherServiceImp.deleteTeacher(teacherServiceImp.getTeacherById(id));
         return "redirect:/login";
     }
 
-    @GetMapping("/{id}/edit")                                      //form for update teacher
+    @GetMapping("/{id}/edit")                                          //form for update teacher
     public String edit(@PathVariable("id") int id, Model model) {
         model.addAttribute("teacherToBeUpdate", teacherServiceImp.getTeacherById(id));
         model.addAttribute("subgroupList", subgroupServiceImp.getAllSubgroup());

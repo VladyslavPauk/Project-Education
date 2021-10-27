@@ -28,15 +28,16 @@ public class Subgroup {
     private Teacher teacher;
 
     @OneToMany(mappedBy = "subgroup", fetch = FetchType.EAGER)
-    private List<Lesson> lessonList;
+    private Set<Lesson> lessonSet;
 
 
-    public List<Lesson> getLessonList() {
-        return lessonList;
+
+    public Set<Lesson> getLessonSet() {
+        return lessonSet;
     }
 
-    public void setLessonList(List<Lesson> lessonList) {
-        this.lessonList = lessonList;
+    public void setLessonSet(Set<Lesson> lessonSet) {
+        this.lessonSet = lessonSet;
     }
 
     public Teacher getTeacher() {

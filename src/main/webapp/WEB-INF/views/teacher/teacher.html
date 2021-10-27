@@ -9,9 +9,17 @@
 <p th:text="surname + ${teacher.getSurname()}">surname</p>
 <br>
 <p>it is all my group</p>
-<div th:each="subgroup : ${subgroupSet}">
-    <a th:href="@{/subgroup/{id}(id=${subgroup.getId()})}" th:text="${subgroup.getName()}">subgroup</a>
-</div>
+<table>
+    <tr th:each="entry : ${subgroupLessonListMap}">
+     <td><a th:href="@{/subgroup/{id}(id=${entry.key.getId()})}" th:text="${entry.key.name}">subgroup</a></td>
+        <table>
+            <tr th:each="lesson : ${entry.value}">
+              <td><a th:href="@{/lesson/{id}(id=${lesson.getId()})}" th:text="${lesson.name}">Some lesson</a></td>
+            </tr>
+        </table>
+    </tr>
+</table>
+
 <br>
 <a th:href="@{/teacher/{id}/edit(id=${teacher.getId()})}">update teacher</a>
 <form th:method="DELETE" th:action="@{/teacher/{id}(id=${teacher.getId()})}">

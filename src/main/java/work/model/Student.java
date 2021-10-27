@@ -33,6 +33,11 @@ public class Student {
     @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
     private Set<Grade> gradeSet;
 
+    @Override
+    public String toString() {
+        return " " + name + " " + surname;
+    }
+
     public int getId() {
         return id;
     }

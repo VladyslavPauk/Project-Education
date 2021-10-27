@@ -12,12 +12,8 @@
 <br>
 <a th:href="@{/student/{id}/edit(id=${student.getId()})}">update student</a>
 <br>
-<div th:each="lesson : ${lessonList}">
-    <p th:text="${lesson.getName()}">lesson</p>
-</div>
-<br>
 <div>
-    <li th:each="entry: ${map}">
+    <li th:each="entry: ${lessonGradeMap}">
         <span th:text="${entry.key}"></span> = <span th:text="${entry.value}"></span>
     </li>
 </div>

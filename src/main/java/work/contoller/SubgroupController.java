@@ -6,11 +6,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import work.model.Grade;
 import work.model.Lesson;
 import work.model.Subgroup;
 import work.service.LessonServiceImp;
 import work.service.StudentServiceImp;
 import work.service.SubgroupServiceImp;
+
+import java.util.Set;
 
 
 @Controller
@@ -40,7 +43,8 @@ public class SubgroupController {
     public String getStudentInSubgroupOnLesson(@PathVariable("subgroupId") int subgroupId, @PathVariable("id") int lessonId, Model model) {
         Subgroup subgroup = subgroupServiceImp.getSubgroupById(subgroupId);
         Lesson lesson =  lessonServiceImp.getLessonById(lessonId);
-        model.addAttribute("studentGradeSetMap", studentServiceImp.getStudentGradeSetMap(subgroup,lesson));
+        Set<Grade> gradeSet = lesson.getGradeSet();
+        model.addAttribute("studentGradeListMap", studentServiceImp.getStudentGradeListMap(gradeSet));
         return "lesson/lesson";
     }
 

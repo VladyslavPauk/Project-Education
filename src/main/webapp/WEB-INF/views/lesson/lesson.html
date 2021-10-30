@@ -6,7 +6,7 @@
 </head>
 <body>
 <div>
-    <li th:each="entry: ${studentGradeSetMap}">
+    <li th:each="entry: ${studentGradeListMap}">
         <span th:text="${entry.key}"></span> = <span th:text="${entry.value}"></span>
     </li>
 </div>

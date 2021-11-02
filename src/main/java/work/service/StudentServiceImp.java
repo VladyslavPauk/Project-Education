@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import work.model.Grade;
+import work.model.Lesson;
 import work.model.Student;
 import work.repository.StudentRepositoryImp;
+
 import java.util.*;
 
 @Service
@@ -78,18 +80,25 @@ public class StudentServiceImp implements StudentService {
         return mapLessonAverageGrade;
     }
 
-    public Map<Student, List<Grade>> getStudentGradeListMap(Set<Grade> grades) {
+    public Map<Student, List<Grade>> getStudentGradeListMap(Set<Student> students, int lessonId) {
         Map<Student, List<Grade>> studentGradeListMap = new HashMap<>();
-        for (Grade grade : grades) {
-            if (studentGradeListMap.containsKey(grade.getStudent())) {
-                studentGradeListMap.get(grade.getStudent()).add(grade);
-            } else {
-                List<Grade> gradeList = new ArrayList<>();
-                gradeList.add(grade);
-                studentGradeListMap.put(grade.getStudent(), gradeList);
+
+        for (Student student : students) {
+            Set<Grade> grades = student.getGradeSet();
+            for (Grade grade : grades) {
+                Lesson lesson = grade.getLesson();
+                if (lesson.getId() == lessonId) {
+
+                    if (studentGradeListMap.containsKey(student)) {
+                        studentGradeListMap.get(student).add(grade);
+                    } else {
+                        List<Grade> gradeList = new ArrayList<>();
+                        gradeList.add(grade);
+                        studentGradeListMap.put(student, gradeList);
+                    }
+                }
             }
         }
         return studentGradeListMap;
     }
-
 }

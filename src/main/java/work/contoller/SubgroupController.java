@@ -3,11 +3,10 @@ package work.contoller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import work.model.Grade;
 import work.model.Lesson;
+import work.model.Student;
 import work.model.Subgroup;
 import work.service.LessonServiceImp;
 import work.service.StudentServiceImp;
@@ -42,10 +41,26 @@ public class SubgroupController {
     @GetMapping("/{subgroupId}/lesson/{id}")
     public String getStudentInSubgroupOnLesson(@PathVariable("subgroupId") int subgroupId, @PathVariable("id") int lessonId, Model model) {
         Subgroup subgroup = subgroupServiceImp.getSubgroupById(subgroupId);
-        Lesson lesson =  lessonServiceImp.getLessonById(lessonId);
-        Set<Grade> gradeSet = lesson.getGradeSet();
-        model.addAttribute("studentGradeListMap", studentServiceImp.getStudentGradeListMap(gradeSet));
+        Set<Student> students = subgroup.getStudentSet();
+        model.addAttribute("studentGradeListMap", studentServiceImp.getStudentGradeListMap(students, lessonId));
         return "lesson/lesson";
+    }
+
+    @PostMapping("/student/{studentId}/lesson/{lessonId}/add}")
+    public String addGradeStudentInLesson(@PathVariable("subgroupId") int subgroupId, @PathVariable("studentId") int studentId,
+                                          @PathVariable("lessonId") int lessonId, @RequestParam("grade") int gradeValue) {
+
+        Student student = studentServiceImp.getStudent(studentId);
+        Grade grade = new Grade();
+        grade.setValue(gradeValue);
+        Lesson lesson = lessonServiceImp.getLessonById(lessonId);
+        grade.setLesson(lesson);
+        grade.setStudent(student);
+        grade.setTeacher(lesson.getTeacher());
+        student.getGradeSet().add(grade);
+        studentServiceImp.updateStudent(student);
+        return "lesson/lesson";
+
     }
 
 }

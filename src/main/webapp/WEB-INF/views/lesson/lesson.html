@@ -5,14 +5,14 @@
     <title>lesson</title>
 </head>
 <body>
-<form th:method="post" th:action="@{/subgroup/{subgroupId}/student/{studentId}/lesson/{lessonId}/add}">
-<div>
     <li th:each="entry: ${studentGradeListMap}">
+        <form th:method="post" th:action="@{/subgroup/{subgroupId}/student/{studentId}/lesson/{lessonId}/add
+        (subgroupId=${entry.key.getSubgroup().id}, studentId=${entry.key.getId()}, lessonId=${lesson.getId()})}">
+
         <span th:text="${entry.key}"></span> = <span th:text="${entry.value}"></span>
-        <label for="grade">add grade</label><input type="number" name="grade" id="grade">
-        <input type="submit" value="Add!">
+    <label for="grade">add grade</label><input type="number" name="grade" id="grade">
+    <input type="submit" value="Add!">
+        </form>
     </li>
-</div>
-</form>
 </body>
 </html>

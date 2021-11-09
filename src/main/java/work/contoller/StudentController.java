@@ -10,9 +10,7 @@ import work.model.Subgroup;
 import work.model.Student;
 import work.service.SubgroupServiceImp;
 import work.service.StudentServiceImp;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
 @Controller
 @RequestMapping("/student")
@@ -49,9 +47,9 @@ public class StudentController {
     @GetMapping("/{id}")                                         // get one Student
     public String getStudent(@PathVariable("id") int id, Model model) {
         Student student = studentServiceImp.getStudent(id);
-        model.addAttribute("student",student);
+        model.addAttribute("student", student);
         model.addAttribute("lessonGradeMap", studentServiceImp.getMapLessonGrade(student.getGradeSet()));
-        model.addAttribute("averageMap",studentServiceImp.getMapLessonAverageGrade(studentServiceImp.getMapLessonGrade(student.getGradeSet())));
+        model.addAttribute("averageMap", studentServiceImp.getMapLessonAverageGrade(studentServiceImp.getMapLessonGrade(student.getGradeSet())));
         return "student/student";
     }
 
@@ -69,12 +67,12 @@ public class StudentController {
     }
 
     @PutMapping("/{id}")
-    public String updateStudent (@ModelAttribute Student student, @PathVariable("id") int studentId, @RequestParam("id") int groupId, Model model) {
-         Subgroup subgroup = subgroupServiceImp.getSubgroupById(groupId);
-         student.setId(studentId);
-         student.setSubgroup(subgroup);
-         studentServiceImp.updateStudent(student);
-         model.addAttribute("student", student);
+    public String updateStudent(@ModelAttribute Student student, @PathVariable("id") int studentId, @RequestParam("id") int groupId, Model model) {
+        Subgroup subgroup = subgroupServiceImp.getSubgroupById(groupId);
+        student.setId(studentId);
+        student.setSubgroup(subgroup);
+        studentServiceImp.updateStudent(student);
+        model.addAttribute("student", student);
         return "student/student";
     }
 }

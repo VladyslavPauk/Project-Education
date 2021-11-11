@@ -10,7 +10,7 @@
 <br>
 <p>it is all my group</p>
 <table>
-    <tr th:each="entry : ${subgroupLessonSetMap}">
+    <tr th:each="entry : ${subgroupLessonsMap}">
      <td><a th:href="@{/subgroup/{id}(id=${entry.key.getId()})}" th:text="${entry.key.name}">subgroup</a></td>
         <table>
             <tr th:each="lesson : ${entry.value}">

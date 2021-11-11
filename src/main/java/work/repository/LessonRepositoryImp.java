@@ -12,7 +12,7 @@ public class LessonRepositoryImp implements LessonRepository {
     @Autowired
     public SessionFactory sessionFactory;
     @Override
-    public Lesson getLessonById(int id) {
+    public Lesson getLesson(int id) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Lesson lesson = session.get(Lesson.class, id);

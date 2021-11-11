@@ -9,7 +9,7 @@
     <p th:text="quantity + ${subgroup.getQuantity()}">quantity</p>
     <a th:href="@{/teacher/{id}(id=${subgroup.getTeacher.getId()})}" th:text="curator + ${subgroup.getTeacher.getName()} + ${subgroup.getTeacher.getSurname()}">teacher></a>
     <p> it is all student in group</p>
-    <div th:each="student : ${studentSet}">
+    <div th:each="student : ${subgroup.getStudentSet()}">
         <a th:href="@{/student/{id}(id=${student.getId()})}" th:text="${student.getName()}">student</a>
     </div>
 </body>

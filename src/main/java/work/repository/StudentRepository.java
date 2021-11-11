@@ -5,14 +5,14 @@ import work.model.Student;
 import java.util.List;
 
 public interface StudentRepository {
-    public List<Student> getAllStudents();
+    List<Student> getStudents();
 
-    public Student getStudent(int id);
+    Student getStudent(int id);
 
-    public void deleteStudent(int id);
+    void deleteStudent(int id);
 
-    public void updateStudent(Student student);
+    void updateStudent(Student student);
 
-    public void setStudent(Student student);
+    void saveStudent(Student student);
 
 }

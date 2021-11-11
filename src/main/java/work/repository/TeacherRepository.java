@@ -4,11 +4,11 @@ import work.model.Teacher;
 
 
 public interface TeacherRepository {
-    public Teacher getTeacherById(int id);
+    Teacher getTeacher(int id);
 
-    public void saveTeacher(Teacher teacher);
+    void saveTeacher(Teacher teacher);
 
-    public void deleteTeacher(Teacher teacher);
+    void deleteTeacher(Teacher teacher);
 
-    public void updateTeacher(Teacher teacher);
+    void updateTeacher(Teacher teacher);
 }

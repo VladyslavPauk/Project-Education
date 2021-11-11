@@ -1,16 +1,14 @@
-package work.contoller;
+package work.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import work.model.*;
-import work.repository.GradeRepositoryImp;
 import work.service.GradeServiceImp;
 import work.service.LessonServiceImp;
 import work.service.StudentServiceImp;
 import work.service.SubgroupServiceImp;
-
 import java.util.Set;
 
 @Controller
@@ -26,37 +24,30 @@ public class SubgroupController {
     private GradeServiceImp gradeServiceImp;
 
     @GetMapping("/{id}")
-    public String getSubgroupById(@PathVariable("id") int id, Model model) {
-        Subgroup subgroup = subgroupServiceImp.getSubgroupById(id);
-        model.addAttribute("subgroup", subgroup);
-        model.addAttribute("studentSet", subgroup.getStudentSet());
+    public String getSubgroup(@PathVariable("id") int id, Model model) {
+        model.addAttribute("subgroup", subgroupServiceImp.getSubgroup(id));
         return "subgroup/subgroup";
     }
 
     @GetMapping
-    public String getAllSubgroups(Model model) {
-        model.addAttribute("subgroupList", subgroupServiceImp.getAllSubgroup());
+    public String getSubgroups(Model model) {
+        model.addAttribute("subgroups", subgroupServiceImp.getSubgroups());
         return "subgroup/subgroups";
     }
 
     @GetMapping("/{subgroupId}/lesson/{id}")
     public String getStudentInSubgroupOnLesson(@PathVariable("subgroupId") int subgroupId, @PathVariable("id") int lessonId, Model model) {
-        Subgroup subgroup = subgroupServiceImp.getSubgroupById(subgroupId);
-        Set<Student> students = subgroup.getStudentSet();
-        model.addAttribute("lesson", lessonServiceImp.getLessonById(lessonId));
-        model.addAttribute("studentGradeListMap", studentServiceImp.getStudentGradeListMap(students, lessonId));
+        Set<Student> students = subgroupServiceImp.getSubgroup(subgroupId).getStudentSet();
+        model.addAttribute("lesson", lessonServiceImp.getLesson(lessonId));
+        model.addAttribute("studentGradesMap", studentServiceImp.getStudentGradesMap(students, lessonId));
         return "lesson/lesson";
     }
 
-    @PostMapping("/{subgroupId}/student/{studentId}/lesson/{lessonId}/add")
+    @PostMapping("/{subgroupId}/student/{studentId}/lesson/{lessonId}/addGrade")
     public String addGradeStudentInLesson(@PathVariable("subgroupId") int subgroupId, @PathVariable("studentId") int studentId,
                                           @PathVariable("lessonId") int lessonId, @RequestParam("grade") int gradeValue) {
 
-        Student student = studentServiceImp.getStudent(studentId);
-        Lesson lesson = lessonServiceImp.getLessonById(lessonId);
-        Teacher teacher = lesson.getTeacher();
-        Grade grade = gradeServiceImp.createGrade(gradeValue, lesson, student, teacher);
-        gradeServiceImp.addGrade(grade);
+        gradeServiceImp.createGrade(studentServiceImp.getStudent(studentId), lessonServiceImp.getLesson(lessonId), gradeValue);
         return "redirect:/subgroup/" + subgroupId + "/lesson/" + lessonId;
     }
 }

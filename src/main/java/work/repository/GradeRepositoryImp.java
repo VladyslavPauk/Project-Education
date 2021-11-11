@@ -10,7 +10,7 @@ import work.model.Grade;
 public class GradeRepositoryImp implements GradeRepository {
 
     @Autowired
-    SessionFactory sessionFactory;
+   public SessionFactory sessionFactory;
 
     public void addGrade(Grade grade) {
         Session session = sessionFactory.openSession();

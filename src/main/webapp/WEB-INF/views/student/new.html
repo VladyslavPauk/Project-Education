@@ -13,7 +13,7 @@
     <br>
     <label for="id"> Chose your subgroup </label>
     <select name="id" id="id">
-        <option th:each="subgroup:${subgroupList}"
+        <option th:each="subgroup:${subgroups}"
                 th:value="${subgroup.getId()}"
                 th:text="${subgroup.getName()}">
         </option>

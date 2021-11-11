@@ -13,13 +13,13 @@
 <a th:href="@{/student/{id}/edit(id=${student.getId()})}">update student</a>
 <br>
 <div>
-    <li th:each="entry: ${lessonGradeMap}">
+    <li th:each="entry: ${lessonGradesMap}">
         <span th:text="${entry.key}"></span> = <span th:text="${entry.value}"></span>
     </li>
 </div>
 <br>
 <div>
-    <li th:each="entry: ${averageMap}">
+    <li th:each="entry: ${lessonAverageGradeMap}">
         <span th:text="${entry.key}"></span> = <span th:text="${entry.value}"></span>
     </li>
 </div>

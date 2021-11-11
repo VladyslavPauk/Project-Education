@@ -5,8 +5,8 @@
     <title>lesson</title>
 </head>
 <body>
-    <li th:each="entry: ${studentGradeListMap}">
-        <form th:method="post" th:action="@{/subgroup/{subgroupId}/student/{studentId}/lesson/{lessonId}/add
+    <li th:each="entry: ${studentGradesMap}">
+        <form th:method="post" th:action="@{/subgroup/{subgroupId}/student/{studentId}/lesson/{lessonId}/addGrade
         (subgroupId=${entry.key.getSubgroup().id}, studentId=${entry.key.getId()}, lessonId=${lesson.getId()})}">
 
         <span th:text="${entry.key}"></span> = <span th:text="${entry.value}"></span>

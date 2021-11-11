@@ -16,7 +16,7 @@ public class SubgroupRepositoryImp implements SubgroupRepository {
     public SessionFactory sessionFactory;
 
     @Override
-    public Subgroup getSubgroupById(int id) {
+    public Subgroup getSubgroup(int id) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Subgroup subgroup = session.get(Subgroup.class, id);
@@ -26,7 +26,7 @@ public class SubgroupRepositoryImp implements SubgroupRepository {
     }
 
     @Override
-    public List<Subgroup> getAllSubgroup() {
+    public List<Subgroup> getSubgroups() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Query query = session.createQuery("from Subgroup");

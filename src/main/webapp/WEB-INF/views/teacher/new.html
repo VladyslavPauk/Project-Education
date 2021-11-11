@@ -12,7 +12,7 @@
     <label for="password">Enter your  password </label><input type="password" name="password" id="password">
     <br>
     <select id="subgroups" multiple="multiple" name="subgroups">
-        <option th:each="subgroup:${subgroupList}"
+        <option th:each="subgroup:${subgroups}"
                 th:value="${subgroup.getId()}"
                 th:text="${subgroup.getName()}">
         </option>

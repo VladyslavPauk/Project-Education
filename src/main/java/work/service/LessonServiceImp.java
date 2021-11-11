@@ -11,7 +11,7 @@ public class LessonServiceImp implements  LessonService{
     private LessonRepositoryImp lessonRepositoryImp;
 
     @Override
-    public Lesson getLessonById(int id) {
-        return lessonRepositoryImp.getLessonById(id);
+    public Lesson getLesson(int id) {
+        return lessonRepositoryImp.getLesson(id);
     }
 }

@@ -1,18 +1,21 @@
 package work.service;
 
+import work.model.Grade;
 import work.model.Student;
+import work.model.Subgroup;
 
+import java.util.HashSet;
 import java.util.List;
 
 public interface StudentService {
-    public List<Student> getAllStudents();
+    List<Student> getStudents();
 
-    public Student getStudent(int id);
+    Student getStudent(int id);
 
-    public void deleteStudent(int id);
+    void deleteStudent(int id);
 
-    public void updateStudent(Student student);
+    void updateStudent(Student student, Subgroup subgroup, int studentId);
 
-    public void setStudent(Student student);
+    void saveStudent(Student student, Subgroup subgroup, HashSet<Grade> grades);
 
 }

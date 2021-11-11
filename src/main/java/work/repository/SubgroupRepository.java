@@ -5,8 +5,8 @@ import work.model.Subgroup;
 import java.util.List;
 
 public interface SubgroupRepository {
-    public Subgroup getSubgroupById(int id);
+    Subgroup getSubgroup(int id);
 
-    public List<Subgroup> getAllSubgroup();
+    List<Subgroup> getSubgroups();
 
 }

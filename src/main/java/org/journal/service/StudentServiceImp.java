@@ -52,15 +52,21 @@ public class StudentServiceImp implements StudentService {
         studentsRepositoryImp.saveStudent(student);
     }
 
-    public Map<String, List<Grade>> getLessonGradesMap(Set<Grade> grades) {
+    public Map<String, List<Grade>> getLessonGradesMap(Set<Grade> grades, Set<Lesson> lessons) {
         Map<String, List<Grade>> lessonGradesMap = new HashMap<>();
-        for (Grade grade : grades) {
-            if (lessonGradesMap.containsKey(grade.getLesson().getName())) {
-                lessonGradesMap.get(grade.getLesson().getName()).add(grade);
-            } else {
-                List<Grade> gradeList = new ArrayList<>();
-                gradeList.add(grade);
-                lessonGradesMap.put(grade.getLesson().getName(), gradeList);
+        if (!grades.isEmpty()) {
+            for (Grade grade : grades) {
+                if (lessonGradesMap.containsKey(grade.getLesson().getName())) {
+                    lessonGradesMap.get(grade.getLesson().getName()).add(grade);
+                } else {
+                    List<Grade> gradeList = new ArrayList<>();
+                    gradeList.add(grade);
+                    lessonGradesMap.put(grade.getLesson().getName(), gradeList);
+                }
+            }
+        } else {
+            for (Lesson lesson : lessons) {
+                lessonGradesMap.put(lesson.getName(), new ArrayList<Grade>());
             }
         }
         return lessonGradesMap;
@@ -75,11 +81,15 @@ public class StudentServiceImp implements StudentService {
             List<Grade> gradeList = map.getValue();
 
             double sum = 0;
-            for (Grade grade : gradeList) {
-                sum = sum + grade.getValue();
+            if (gradeList.isEmpty()) {
+                lessonAverageGradeMap.put(lessonName, 0.0);
+            } else {
+                for (Grade grade : gradeList) {
+                    sum = sum + grade.getValue();
+                }
+                averageGrade = sum / gradeList.size();
+                lessonAverageGradeMap.put(lessonName, averageGrade);
             }
-            averageGrade = sum / gradeList.size();
-            lessonAverageGradeMap.put(lessonName, averageGrade);
         }
         return lessonAverageGradeMap;
     }
@@ -102,6 +112,7 @@ public class StudentServiceImp implements StudentService {
                     }
                 }
             }
+
         }
         return studentGradesMap;
     }

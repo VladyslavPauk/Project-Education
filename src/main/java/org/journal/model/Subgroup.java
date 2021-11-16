@@ -9,7 +9,7 @@ import java.util.Set;
 public class Subgroup {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
     private int id;
 

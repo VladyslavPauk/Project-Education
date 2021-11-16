@@ -8,7 +8,7 @@ import java.util.Set;
 public class Lesson {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
     private int id;
 

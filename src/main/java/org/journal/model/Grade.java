@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Grade {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
     private int id;
 

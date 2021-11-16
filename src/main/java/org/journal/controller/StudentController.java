@@ -41,8 +41,8 @@ public class StudentController {
     public String getStudent(@PathVariable("id") int id, Model model) {
         Student student = studentServiceImp.getStudent(id);
         model.addAttribute("student", student);
-        model.addAttribute("lessonGradesMap", studentServiceImp.getLessonGradesMap(student.getGradeSet()));
-        model.addAttribute("lessonAverageGradeMap", studentServiceImp.getLessonAverageGradeMap(studentServiceImp.getLessonGradesMap(student.getGradeSet())));
+        model.addAttribute("lessonGradesMap", studentServiceImp.getLessonGradesMap(student.getGradeSet(), student.getSubgroup().getLessonSet()));
+        model.addAttribute("lessonAverageGradeMap", studentServiceImp.getLessonAverageGradeMap(studentServiceImp.getLessonGradesMap(student.getGradeSet(), student.getSubgroup().getLessonSet())));
         return "student/student";
     }
 

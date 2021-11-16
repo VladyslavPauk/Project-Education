@@ -47,7 +47,7 @@ public class SubgroupController {
     public String addGradeStudentInLesson(@PathVariable("subgroupId") int subgroupId, @PathVariable("studentId") int studentId,
                                           @PathVariable("lessonId") int lessonId, @RequestParam("grade") int gradeValue) {
 
-        gradeServiceImp.createGrade(studentServiceImp.getStudent(studentId), lessonServiceImp.getLesson(lessonId), gradeValue);
+        gradeServiceImp.addGrade(studentServiceImp.getStudent(studentId), lessonServiceImp.getLesson(lessonId), gradeValue);
         return "redirect:/subgroup/" + subgroupId + "/lesson/" + lessonId;
     }
 }

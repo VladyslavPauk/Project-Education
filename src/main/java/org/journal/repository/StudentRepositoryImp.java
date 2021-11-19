@@ -3,10 +3,15 @@ package org.journal.repository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.journal.model.Grade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.journal.model.Student;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Repository
 public class StudentRepositoryImp implements StudentRepository {
@@ -47,6 +52,24 @@ public class StudentRepositoryImp implements StudentRepository {
         session.getTransaction().commit();
         session.close();
         return student;
+    }
+
+    public Map<Student, List<Grade>> getStudentGradesMap(int lessonId, Set<Student> students) {
+        Map<Student, List<Grade>> studentGradesMap = new HashMap<>();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        for (Student student : students) {
+            int studentId = student.getId();
+
+            Query query = session.createQuery("from Grade as grade where grade.lesson.id =:lessonId and grade.student.id =: studentId");
+            query.setParameter("lessonId", lessonId);
+            query.setParameter("studentId", studentId);
+            List<Grade> grades = query.list();
+            studentGradesMap.put(student, grades);
+        }
+        session.getTransaction().commit();
+        session.close();
+        return studentGradesMap;
     }
 
     @Override

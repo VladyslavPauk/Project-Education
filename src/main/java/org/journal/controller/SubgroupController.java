@@ -1,6 +1,7 @@
 package org.journal.controller;
 
 import org.journal.model.Student;
+import org.journal.repository.StudentRepositoryImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,8 @@ public class SubgroupController {
     private StudentServiceImp studentServiceImp;
     @Autowired
     private GradeServiceImp gradeServiceImp;
+    @Autowired
+    StudentRepositoryImp studentRepositoryImp;
 
     @GetMapping("/{id}")
     public String getSubgroup(@PathVariable("id") int id, Model model) {
@@ -39,7 +42,7 @@ public class SubgroupController {
     public String getStudentInSubgroupOnLesson(@PathVariable("subgroupId") int subgroupId, @PathVariable("id") int lessonId, Model model) {
         Set<Student> students = subgroupServiceImp.getSubgroup(subgroupId).getStudentSet();
         model.addAttribute("lesson", lessonServiceImp.getLesson(lessonId));
-        model.addAttribute("studentGradesMap", studentServiceImp.getStudentGradesMap(students, lessonId));
+        model.addAttribute("studentGradesMap", studentRepositoryImp.getStudentGradesMap(lessonId, students));
         return "lesson/lesson";
     }
 

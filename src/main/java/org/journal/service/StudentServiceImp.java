@@ -94,26 +94,30 @@ public class StudentServiceImp implements StudentService {
         return lessonAverageGradeMap;
     }
 
-    public Map<Student, List<Grade>> getStudentGradesMap(Set<Student> students, int lessonId) {
-        Map<Student, List<Grade>> studentGradesMap = new HashMap<>();
-
-        for (Student student : students) {
-            Set<Grade> grades = student.getGradeSet();
-            for (Grade grade : grades) {
-                Lesson lesson = grade.getLesson();
-                if (lesson.getId() == lessonId) {
-
-                    if (studentGradesMap.containsKey(student)) {
-                        studentGradesMap.get(student).add(grade);
-                    } else {
-                        List<Grade> gradeList = new ArrayList<>();
-                        gradeList.add(grade);
-                        studentGradesMap.put(student, gradeList);
-                    }
-                }
-            }
-
-        }
-        return studentGradesMap;
-    }
+//    public Map<Student, List<Grade>> getStudentGradesMap(Set<Student> students, int lessonId) {
+//        Map<Student, List<Grade>> studentGradesMap = new HashMap<>();
+//
+//        for (Student student : students) {
+//            Set<Grade> grades = student.getGradeSet();
+//            if (!grades.isEmpty()) {
+//                for (Grade grade : grades) {
+//                    Lesson lesson = grade.getLesson();
+//                    if (lesson.getId() == lessonId) {
+//
+//                        if (studentGradesMap.containsKey(student)) {
+//                            studentGradesMap.get(student).add(grade);
+//                        } else {
+//                            List<Grade> gradeList = new ArrayList<>();
+//                            gradeList.add(grade);
+//                            studentGradesMap.put(student, gradeList);
+//                        }
+//                    }
+//                }
+//            } else {
+//                studentGradesMap.put(student, new ArrayList<Grade>());
+//            }
+//
+//        }
+//        return studentGradesMap;
+//    }
 }

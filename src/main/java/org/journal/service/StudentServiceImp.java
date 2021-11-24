@@ -17,6 +17,8 @@ public class StudentServiceImp implements StudentService {
     private StudentRepositoryImp studentsRepositoryImp;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private SubgroupServiceImp subgroupServiceImp;
 
     @Override
     public List<Student> getStudents() {
@@ -72,6 +74,7 @@ public class StudentServiceImp implements StudentService {
         return lessonGradesMap;
     }
 
+
     public Map<String, Double> getLessonAverageGradeMap(Map<String, List<Grade>> lessonGradesMap) {
         Map<String, Double> lessonAverageGradeMap = new HashMap<>();
 
@@ -94,30 +97,30 @@ public class StudentServiceImp implements StudentService {
         return lessonAverageGradeMap;
     }
 
-//    public Map<Student, List<Grade>> getStudentGradesMap(Set<Student> students, int lessonId) {
-//        Map<Student, List<Grade>> studentGradesMap = new HashMap<>();
-//
-//        for (Student student : students) {
-//            Set<Grade> grades = student.getGradeSet();
-//            if (!grades.isEmpty()) {
-//                for (Grade grade : grades) {
-//                    Lesson lesson = grade.getLesson();
-//                    if (lesson.getId() == lessonId) {
-//
-//                        if (studentGradesMap.containsKey(student)) {
-//                            studentGradesMap.get(student).add(grade);
-//                        } else {
-//                            List<Grade> gradeList = new ArrayList<>();
-//                            gradeList.add(grade);
-//                            studentGradesMap.put(student, gradeList);
-//                        }
-//                    }
-//                }
-//            } else {
-//                studentGradesMap.put(student, new ArrayList<Grade>());
-//            }
-//
-//        }
-//        return studentGradesMap;
-//    }
+    public Map<Student, List<Grade>> getStudentGradesMap(int lessonId, int subgroupId) {
+        Set<Student> studentsInGroup = subgroupServiceImp.getSubgroup(subgroupId).getStudentSet();
+        Map<Student, List<Grade>> studentGradesMap = new HashMap<>();
+
+        for (Student student : studentsInGroup) {
+            Set<Grade> grades = student.getGradeSet();
+            int count = 0;
+            for (Grade grade : grades) {
+                if (grade.getLesson().getId() == lessonId) {
+                    if (studentGradesMap.containsKey(grade.getStudent())) {
+                        studentGradesMap.get(grade.getStudent()).add(grade);
+                    } else {
+                        List<Grade> gradeList = new ArrayList<>();
+                        gradeList.add(grade);
+                        studentGradesMap.put(grade.getStudent(), gradeList);
+                    }
+                } else {
+                    count++;
+                }
+                if (count == grades.size()) {
+                    studentGradesMap.put(grade.getStudent(), new ArrayList<Grade>());
+                }
+            }
+        }
+        return studentGradesMap;
+    }
 }

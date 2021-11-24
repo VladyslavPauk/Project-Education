@@ -29,6 +29,7 @@ public class Student {
     private Subgroup subgroup;
 
     @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
+    @MapKey
     private Set<Grade> gradeSet;
 
     @Override

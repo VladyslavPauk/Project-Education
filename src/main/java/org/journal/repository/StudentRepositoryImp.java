@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.journal.model.Student;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Repository
 public class StudentRepositoryImp implements StudentRepository {
@@ -54,24 +51,6 @@ public class StudentRepositoryImp implements StudentRepository {
         return student;
     }
 
-    public Map<Student, List<Grade>> getStudentGradesMap(int lessonId, Set<Student> students) {
-        Map<Student, List<Grade>> studentGradesMap = new HashMap<>();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        for (Student student : students) {
-            int studentId = student.getId();
-
-            Query query = session.createQuery("from Grade as grade where grade.lesson.id =:lessonId and grade.student.id =: studentId");
-            query.setParameter("lessonId", lessonId);
-            query.setParameter("studentId", studentId);
-            List<Grade> grades = query.list();
-            studentGradesMap.put(student, grades);
-        }
-        session.getTransaction().commit();
-        session.close();
-        return studentGradesMap;
-    }
-
     @Override
     public void deleteStudent(int id) {
         Session session = sessionFactory.openSession();
@@ -97,6 +76,22 @@ public class StudentRepositoryImp implements StudentRepository {
         session.save(student);
         session.getTransaction().commit();
         session.close();
+    }
+
+    public Map<Student, Set<Grade>> getStudentGradesMap(int lessonId, int subgroupId) {
+        Map<Student, Set<Grade>> studentGradesMap = new HashMap<>();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("select new map (student as Student, gradeSet as GradeSet) " +
+                "from Student as student " +
+                "join student.gradeSet gradeSet " +
+                "where gradeSet.lesson.id =: lessonId and student.subgroup.id =: subgroupId", Map.class);
+        query.setParameter("lessonId", lessonId);
+        query.setParameter("subgroupId", subgroupId);
+        List<Map> list = query.getResultList();
+        session.getTransaction().commit();
+        session.close();
+        return studentGradesMap;
     }
 
 }

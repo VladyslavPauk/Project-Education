@@ -1,8 +1,8 @@
 package org.journal.service;
 
 import org.journal.model.Grade;
+import org.journal.model.Group;
 import org.journal.model.Student;
-import org.journal.model.Subgroup;
 
 import java.util.HashSet;
 import java.util.List;
@@ -14,8 +14,8 @@ public interface StudentService {
 
     void deleteStudent(int id);
 
-    void updateStudent(Student student, Subgroup subgroup, int studentId);
+    void updateStudent(Student student, Group group, int studentId);
 
-    void saveStudent(Student student, Subgroup subgroup, HashSet<Grade> grades);
+    void saveStudent(Student student, Group group, HashSet<Grade> grades);
 
 }

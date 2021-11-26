@@ -21,7 +21,7 @@ public class Teacher {
     @Column
     private String password;
     @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER)
-    private Set<Subgroup> subgroupSet;
+    private Set<Group> groupSet;
     @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER)
     private List<Lesson> lessonList;
     @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER)
@@ -67,12 +67,12 @@ public class Teacher {
         this.password = password;
     }
 
-    public Set<Subgroup> getSubgroupSet() {
-        return subgroupSet;
+    public Set<Group> getGroupSet() {
+        return groupSet;
     }
 
-    public void setSubgroupSet(Set<Subgroup> subgroupSet) {
-        this.subgroupSet = subgroupSet;
+    public void setGroupSet(Set<Group> groupSet) {
+        this.groupSet = groupSet;
     }
 
     public List<Lesson> getLessonList() {

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.journal.service.SubgroupServiceImp;
+import org.journal.service.GroupServiceImp;
 import org.journal.service.TeacherServiceImp;
 
 
@@ -15,26 +15,26 @@ public class TeacherController {
     @Autowired
     private TeacherServiceImp teacherServiceImp;
     @Autowired
-    private SubgroupServiceImp subgroupServiceImp;
+    private GroupServiceImp groupServiceImp;
 
     @GetMapping("/{id}")
     public String getTeacher(@PathVariable("id") int id, Model model) {
         Teacher teacher = teacherServiceImp.getTeacher(id);
         model.addAttribute("teacher", teacher);
-        model.addAttribute("subgroupLessonsMap", teacherServiceImp.getSubgroupLessonsMap(teacher.getSubgroupSet()));
+        model.addAttribute("GroupLessonsMap", teacherServiceImp.getGroupLessonsMap(teacher.getGroupSet()));
         return "teacher/teacher";
     }
 
     @GetMapping("/new")
     public String createTeacher(Model model) {
         model.addAttribute("teacher", new Teacher());
-        model.addAttribute("subgroups", subgroupServiceImp.getSubgroups());
+        model.addAttribute("groups", groupServiceImp.getGroups());
         return "/teacher/new";
     }
 
     @PostMapping("/new")
-    public String saveTeacher(@ModelAttribute("teacher") Teacher teacher, @RequestParam("subgroups") int[] subgroupsId) {
-        teacherServiceImp.saveTeacher(teacher, subgroupsId);
+    public String saveTeacher(@ModelAttribute("teacher") Teacher teacher, @RequestParam("groups") int[] groupsId) {
+        teacherServiceImp.saveTeacher(teacher, groupsId);
         return "redirect:/login";
     }
 

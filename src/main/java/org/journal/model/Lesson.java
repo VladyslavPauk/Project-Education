@@ -17,7 +17,7 @@ public class Lesson {
 
     @ManyToOne
     @JoinColumn(name = "subgroup_id")
-    private Subgroup subgroup;
+    private Group group;
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")
@@ -42,12 +42,12 @@ public class Lesson {
         this.name = name;
     }
 
-    public Subgroup getSubgroup() {
-        return subgroup;
+    public Group getGroup() {
+        return group;
     }
 
-    public void setSubgroup(Subgroup subgroup) {
-        this.subgroup = subgroup;
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public Teacher getTeacher() {

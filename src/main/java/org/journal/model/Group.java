@@ -6,7 +6,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "subgroup")
-public class Subgroup {
+public class Group {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,17 +16,14 @@ public class Subgroup {
     @Column
     private String name;
 
-    @Column
-    private int quantity;
-
-    @OneToMany(mappedBy = "subgroup", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER)
     private Set<Student> studentSet;
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
-    @OneToMany(mappedBy = "subgroup", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER)
     private Set<Lesson> lessonSet;
 
 
@@ -63,13 +60,6 @@ public class Subgroup {
         this.name = name;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 
     public Set<Student> getStudentSet() {
         return studentSet;

@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.journal.model.Grade;
 import org.journal.model.Student;
-import org.journal.service.SubgroupServiceImp;
+import org.journal.service.GroupServiceImp;
 import org.journal.service.StudentServiceImp;
 import java.util.HashSet;
 
@@ -16,18 +16,18 @@ public class StudentController {
     @Autowired
     private StudentServiceImp studentServiceImp;
     @Autowired
-    private SubgroupServiceImp subgroupServiceImp;
+    private GroupServiceImp groupServiceImp;
 
     @GetMapping("/new")
     public String createStudent(Model model) {
         model.addAttribute("student", new Student());
-        model.addAttribute("subgroups", subgroupServiceImp.getSubgroups());
+        model.addAttribute("groups", groupServiceImp.getGroups());
         return "student/new";
     }
 
     @PostMapping("/new")
     public String saveStudent(@ModelAttribute("student") Student student, @RequestParam("id") int groupId) {
-        studentServiceImp.saveStudent(student, subgroupServiceImp.getSubgroup(groupId), new HashSet<Grade>());
+        studentServiceImp.saveStudent(student, groupServiceImp.getGroup(groupId), new HashSet<Grade>());
         return "redirect:/login";
     }
 
@@ -41,8 +41,8 @@ public class StudentController {
     public String getStudent(@PathVariable("id") int id, Model model) {
         Student student = studentServiceImp.getStudent(id);
         model.addAttribute("student", student);
-        model.addAttribute("lessonGradesMap", studentServiceImp.getLessonGradesMap(student.getGradeSet(), student.getSubgroup().getLessonSet()));
-        model.addAttribute("lessonAverageGradeMap", studentServiceImp.getLessonAverageGradeMap(studentServiceImp.getLessonGradesMap(student.getGradeSet(), student.getSubgroup().getLessonSet())));
+        model.addAttribute("lessonGradesMap", studentServiceImp.getLessonGradesMap(student.getGradeSet(), student.getGroup().getLessonSet()));
+        model.addAttribute("lessonAverageGradeMap", studentServiceImp.getLessonAverageGradeMap(studentServiceImp.getLessonGradesMap(student.getGradeSet(), student.getGroup().getLessonSet())));
         return "student/student";
     }
 
@@ -54,14 +54,14 @@ public class StudentController {
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") int id, Model model) {
-        model.addAttribute("subgroups", subgroupServiceImp.getSubgroups());
+        model.addAttribute("groups", groupServiceImp.getGroups());
         model.addAttribute("studentToBeUpdate", studentServiceImp.getStudent(id));
         return "student/updateStudent";
     }
 
     @PutMapping("/{id}")
     public String updateStudent(@ModelAttribute Student student, @PathVariable("id") int studentId, @RequestParam("id") int groupId) {
-        studentServiceImp.updateStudent(student, subgroupServiceImp.getSubgroup(groupId), studentId);
+        studentServiceImp.updateStudent(student, groupServiceImp.getGroup(groupId), studentId);
         return "redirect:/student/" + studentId;
     }
 }

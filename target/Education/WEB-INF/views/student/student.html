@@ -8,7 +8,7 @@
 <p th:text="id + ${student.getId()}">value</p>
 <p th:text="name + ${student.getName()}">value</p>
 <br>
-<a th:href="@{/subgroup/{id}(id=${student.getSubgroup.getId()})}" th:text="group + ${student.getSubgroup().getName()}">group</a>
+<a th:href="@{/group/{id}(id=${student.getGroup.getId()})}" th:text="group + ${student.getGroup().getName()}">group</a>
 <br>
 <a th:href="@{/student/{id}/edit(id=${student.getId()})}">update student</a>
 <br>

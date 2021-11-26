@@ -1,13 +1,13 @@
 package org.journal.service;
 
 import org.journal.model.Grade;
+import org.journal.model.Group;
 import org.journal.model.Lesson;
 import org.journal.model.Student;
 import org.journal.repository.StudentRepositoryImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.journal.model.Subgroup;
 
 import java.util.*;
 
@@ -18,7 +18,7 @@ public class StudentServiceImp implements StudentService {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private SubgroupServiceImp subgroupServiceImp;
+    private GroupServiceImp groupServiceImp;
 
     @Override
     public List<Student> getStudents() {
@@ -40,15 +40,15 @@ public class StudentServiceImp implements StudentService {
     }
 
     @Override
-    public void updateStudent(Student student, Subgroup subgroup, int studentId) {
-        student.setSubgroup(subgroup);
+    public void updateStudent(Student student, Group group, int studentId) {
+        student.setGroup(group);
         student.setId(studentId);
         studentsRepositoryImp.updateStudent(student);
     }
 
     @Override
-    public void saveStudent(Student student, Subgroup subgroup, HashSet<Grade> grades) {
-        student.setSubgroup(subgroup);
+    public void saveStudent(Student student, Group group, HashSet<Grade> grades) {
+        student.setGroup(group);
         student.setGradeSet(grades);
         student.setPassword(passwordEncoder.encode(student.getPassword()));
         studentsRepositoryImp.saveStudent(student);
@@ -97,8 +97,8 @@ public class StudentServiceImp implements StudentService {
         return lessonAverageGradeMap;
     }
 
-    public Map<Student, List<Grade>> getStudentGradesMap(int lessonId, int subgroupId) {
-        Set<Student> studentsInGroup = subgroupServiceImp.getSubgroup(subgroupId).getStudentSet();
+    public Map<Student, List<Grade>> getStudentGradesMap(int lessonId, int groupId) {
+        Set<Student> studentsInGroup = groupServiceImp.getGroup(groupId).getStudentSet();
         Map<Student, List<Grade>> studentGradesMap = new HashMap<>();
 
         for (Student student : studentsInGroup) {

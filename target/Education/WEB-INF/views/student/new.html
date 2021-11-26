@@ -11,11 +11,11 @@
     <label for="email"> Enter your email</label><input type="email" name="email" id="email">
     <label for="password">Enter your  password </label><input type="password" name="password" id="password">
     <br>
-    <label for="id"> Chose your subgroup </label>
+    <label for="id"> Chose your group </label>
     <select name="id" id="id">
-        <option th:each="subgroup:${subgroups}"
-                th:value="${subgroup.getId()}"
-                th:text="${subgroup.getName()}">
+        <option th:each="group:${groups}"
+                th:value="${group.getId()}"
+                th:text="${group.getName()}">
         </option>
     </select>
     </p>

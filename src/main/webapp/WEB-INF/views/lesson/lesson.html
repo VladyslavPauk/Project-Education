@@ -6,8 +6,8 @@
 </head>
 <body>
     <li th:each="entry: ${studentGradesMap}">
-        <form th:method="post" th:action="@{/subgroup/{subgroupId}/student/{studentId}/lesson/{lessonId}/addGrade
-        (subgroupId=${entry.key.getSubgroup().id}, studentId=${entry.key.getId()}, lessonId=${lesson.getId()})}">
+        <form th:method="post" th:action="@{/group/{groupId}/student/{studentId}/lesson/{lessonId}/addGrade
+        (groupId=${entry.key.getGroup().id}, studentId=${entry.key.getId()}, lessonId=${lesson.getId()})}">
 
         <span th:text="${entry.key}"></span> = <span th:text="${entry.value}"></span>
     <label for="grade">add grade</label><input type="number" name="grade" id="grade">

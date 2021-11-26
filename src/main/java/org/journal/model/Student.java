@@ -1,6 +1,7 @@
 package org.journal.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -26,15 +27,27 @@ public class Student {
 
     @ManyToOne
     @JoinColumn(name = "subgroup_id")
-    private Subgroup subgroup;
+    private Group group;
 
     @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
-    @MapKey
     private Set<Grade> gradeSet;
 
     @Override
     public String toString() {
         return " " + name + " " + surname;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return id == student.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     public int getId() {
@@ -77,12 +90,12 @@ public class Student {
         this.surname = surname;
     }
 
-    public Subgroup getSubgroup() {
-        return subgroup;
+    public Group getGroup() {
+        return group;
     }
 
-    public void setSubgroup(Subgroup subgroup) {
-        this.subgroup = subgroup;
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public Set<Grade> getGradeSet() {

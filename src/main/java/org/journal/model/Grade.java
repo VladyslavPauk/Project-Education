@@ -1,6 +1,7 @@
 package org.journal.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "grade")
@@ -27,6 +28,20 @@ public class Grade {
     @Override
     public String toString() {
         return " " + value;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Grade grade = (Grade) o;
+        return id == grade.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     public int getId() {

@@ -78,16 +78,16 @@ public class StudentRepositoryImp implements StudentRepository {
         session.close();
     }
 
-    public Map<Student, Set<Grade>> getStudentGradesMap(int lessonId, int subgroupId) {
+    public Map<Student, Set<Grade>> getStudentGradesMap(int lessonId, int groupId) {
         Map<Student, Set<Grade>> studentGradesMap = new HashMap<>();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Query query = session.createQuery("select new map (student as Student, gradeSet as GradeSet) " +
-                "from Student as student " +
-                "join student.gradeSet gradeSet " +
-                "where gradeSet.lesson.id =: lessonId and student.subgroup.id =: subgroupId", Map.class);
+        Query query = session.createQuery("select distinct new map (student as Student, grade as Grade)" +
+                "from Grade as grade " +
+                "join grade.student as student  " +
+                "where grade.lesson.id =: lessonId and student.group.id =: groupId", Map.class);
         query.setParameter("lessonId", lessonId);
-        query.setParameter("subgroupId", subgroupId);
+        query.setParameter("groupId", groupId);
         List<Map> list = query.getResultList();
         session.getTransaction().commit();
         session.close();

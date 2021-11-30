@@ -18,7 +18,7 @@ public class GroupRepositoryImp implements GroupRepository {
     @Override
     public Group getGroup(int id) {
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
+       session.beginTransaction();
         Group group = session.get(Group.class, id);
         session.getTransaction().commit();
         session.close();
@@ -31,7 +31,7 @@ public class GroupRepositoryImp implements GroupRepository {
         session.beginTransaction();
         Query query = session.createQuery("from Group");
         List<Group> groupList = query.list();
-        session.getTransaction().commit();
+       session.getTransaction().commit();
         session.close();
         return groupList;
     }

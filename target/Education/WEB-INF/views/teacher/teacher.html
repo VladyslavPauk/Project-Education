@@ -5,27 +5,31 @@
     <title>teacher</title>
 </head>
 <body>
-<p th:text="name + ${teacher.getName()}">name</p>
-<p th:text="surname + ${teacher.getSurname()}">surname</p>
+<div style="text-align: center">
+    <p th:text="${teacher.getName()} + ${teacher.getSurname()}">name</p>
+    <p><a th:href="@{/teacher/{id}/edit(id=${teacher.getId()})}">update teacher</a></p>
+</div>
+<div style="text-align: center">
+    <h3>these are my groups and lesson they have</h3>
+    <table style="text-align: center">
+        <tr th:each="entry : ${GroupLessonsMap}">
+            <td><a th:href="@{/group/{id}(id=${entry.key.getId()})}" th:text="${entry.key.name}">group</a></td>
+            <table style="text-align: center">
+                <tr th:each="lesson : ${entry.value}">
+                    <td><a th:href="@{/group/{groupId}/lesson/{id}(groupId=${entry.key.getId()}, id=${lesson.getId()})}"
+                           th:text="${lesson.name}">Some lesson</a>
+                    </td>
+                </tr>
+            </table>
+        </tr>
+    </table>
+</div>
 <br>
-<p>it is all my group</p>
-<table>
-    <tr th:each="entry : ${GroupLessonsMap}">
-     <td><a th:href="@{/group/{id}(id=${entry.key.getId()})}" th:text="${entry.key.name}">group</a></td>
-        <table>
-            <tr th:each="lesson : ${entry.value}">
-              <td><a th:href="@{/group/{groupId}/lesson/{id}(groupId=${entry.key.getId()}, id=${lesson.getId()})}" th:text="${lesson.name}">Some lesson</a></td>
-            </tr>
-        </table>
-    </tr>
-</table>
-
-<br>
-<a th:href="@{/teacher/{id}/edit(id=${teacher.getId()})}">update teacher</a>
-<form th:method="DELETE" th:action="@{/teacher/{id}(id=${teacher.getId()})}">
-    <input type="submit" value="delete">
-</form>
-<a href="/logout">Logout!</a>
-
+<div style="text-align: center">
+    <form th:method="DELETE" th:action="@{/teacher/{id}(id=${teacher.getId()})}">
+        <input type="submit" value="delete">
+    </form>
+    <p><a href="/logout">Logout!</a></p>
+</div>
 </body>
 </html>

@@ -5,7 +5,9 @@
     <title>lesson</title>
 </head>
 <body>
-    <li th:each="entry: ${studentGradesMap}">
+<h1 style="text-align: center">students and their grades in the lesson</h1>
+<br>
+    <li style="text-align: center" th:each="entry: ${studentGradesMap}">
         <form th:method="post" th:action="@{/group/{groupId}/student/{studentId}/lesson/{lessonId}/addGrade
         (groupId=${entry.key.getGroup().id}, studentId=${entry.key.getId()}, lessonId=${lesson.getId()})}">
 

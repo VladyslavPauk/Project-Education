@@ -20,7 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/signUp", "/login", "/student/new", "/teacher/new").anonymous()
+                .antMatchers("/signUp", "/login", "/student/new", "/teacher/new", "/group").anonymous()
                // .antMatchers("/student/{id}", "/student", "/student/{id}/edit").authenticated()
                 .and().csrf().disable()
                 .formLogin()

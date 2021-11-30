@@ -5,11 +5,13 @@
     <title>group</title>
 </head>
 <body>
+<div style="text-align: center">
     <p th:text="name + ${group.getName()}">name</p>
     <p th:text="quantity +  ${group.getStudentSet().size()}">quantity</p>
     <a th:href="@{/teacher/{id}(id=${group.getTeacher.getId()})}" th:text="curator + ${group.getTeacher.getName()} + ${group.getTeacher.getSurname()}">teacher></a>
     <p> it is all student in group</p>
-    <div th:each="student : ${group.getStudentSet()}">
+</div>
+    <div style="text-align: center" th:each="student : ${group.getStudentSet()}">
         <a th:href="@{/student/{id}(id=${student.getId()})}" th:text="${student.getName()}">student</a>
     </div>
 </body>

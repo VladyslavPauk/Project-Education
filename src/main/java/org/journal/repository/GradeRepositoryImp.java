@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public class GradeRepositoryImp implements GradeRepository {
 
     @Autowired
-   public SessionFactory sessionFactory;
+    public SessionFactory sessionFactory;
 
     public void addGrade(Grade grade) {
         Session session = sessionFactory.openSession();

@@ -2,12 +2,11 @@ package org.journal.service;
 
 import org.journal.model.Grade;
 import org.journal.repository.GradeRepository;
-import org.journal.repository.GradeRepositoryImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class GradeServiceImp implements GradeService{
+public class GradeServiceImp implements GradeService {
     @Autowired
     private GradeRepository gradeRepository;
     @Autowired

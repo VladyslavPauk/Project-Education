@@ -1,5 +1,6 @@
 package org.journal.controller;
 
+import org.journal.dto.mapper.MapStructMapper;
 import org.journal.service.LessonService;
 import org.journal.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ public class LessonController {
     private LessonService lessonService;
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private MapStructMapper mapStructMapper;
 
     @GetMapping("/group/{groupId}/lesson/{id}")
     //TODO rename method "getgradesperlessoningroup" and this method need be in lesson controller

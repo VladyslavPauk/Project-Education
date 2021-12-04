@@ -1,5 +1,6 @@
 package org.journal.controller;
 
+import org.journal.dto.mapper.MapStructMapper;
 import org.journal.service.GradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class GradeController {
     @Autowired
     private GradeService gradeService;
+    @Autowired
+    private MapStructMapper mapStructMapper;
 
     @PostMapping("/group/{groupId}/student/{studentId}/lesson/{lessonId}/addGrade")
     //TODO rename, create new grade controller

@@ -1,5 +1,7 @@
 package org.journal.controller;
 
+import org.journal.dto.mapper.MapStructMapper;
+import org.journal.dto.mapper.StudentMapper;
 import org.journal.service.GroupService;
 import org.journal.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ public class StudentController {
     private StudentService studentService;                    //TODO DTO-class
     @Autowired
     private GroupService groupService;                        //TODO change to interface
+    @Autowired
+    private MapStructMapper mapStructMapper;
 
     @GetMapping("/new")
     public String createStudentPage(Model model) {              //TODO dont send new Student
@@ -31,7 +35,7 @@ public class StudentController {
     @GetMapping("/{id}")
     public String getStudent(@PathVariable("id") int id, Model model) {
         Student student = studentService.getStudent(id);
-        model.addAttribute("student", student);
+        model.addAttribute("student", mapStructMapper.toStudentDTO(student));
         model.addAttribute("gradesPerLesson", studentService.getGradesPerLesson(student)); //TODO send to parameter "student" and get all in service/ rename method to gradesPerLesson
         model.addAttribute("averageGradePerLesson", studentService.getAverageGradePerLesson(studentService.getGradesPerLesson(student))); //TODO rename method averageGradePerLesson
         return "student/student";

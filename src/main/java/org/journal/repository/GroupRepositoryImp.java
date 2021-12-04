@@ -26,7 +26,7 @@ public class GroupRepositoryImp implements GroupRepository {
     }
 
     @Override
-    public List<Group> getGroups() {
+    public List<Group> getAllGroups() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Query query = session.createQuery("from Group");

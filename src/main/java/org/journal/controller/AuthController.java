@@ -16,7 +16,7 @@ public class AuthController {
         return "auth/choose";
     }
 
-    @PostMapping("/signUp")                                 // choose who is who and redirect to create model
+    @PostMapping("/signUp")
     public String signUp(@RequestParam("id") int id) {
         if (id == 1) {
             return "redirect:/teacher/new";
@@ -24,7 +24,7 @@ public class AuthController {
             return "redirect:/student/new";
     }
 
-    @GetMapping("/login")                                               // form for login
+    @GetMapping("/login")
     public String login(@RequestParam(value = "error", required = false) Boolean error, Model model) {
         if (Boolean.TRUE.equals(error)) {
             model.addAttribute("error", true);

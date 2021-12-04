@@ -16,17 +16,6 @@ public class StudentRepositoryImp implements StudentRepository {
     public SessionFactory sessionFactory;
 
     @Override
-    public List<Student> getStudents() {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        Query query = session.createQuery("from Student");
-        List<Student> studentList = query.list();
-        session.getTransaction().commit();
-        session.close();
-        return studentList;
-    }
-
-    @Override
     public Student getStudent(int id) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();

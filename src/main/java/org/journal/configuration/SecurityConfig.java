@@ -21,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/signUp", "/login", "/student/new", "/teacher/new", "/group").anonymous()
-               // .antMatchers("/student/{id}", "/student", "/student/{id}/edit").authenticated()
+            //    .antMatchers("/student/*", "/teacher/*", "/group/*").authenticated()
                 .and().csrf().disable()
                 .formLogin()
                 .loginPage("/login")

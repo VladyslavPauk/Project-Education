@@ -13,14 +13,14 @@
           th:text="group + ${student.getGroup().getName()}">group</a></p>
 </div>
 <div style="text-align: center">
-    <li th:each="entry: ${lessonGradesMap}">
+    <li th:each="entry: ${gradesPerLesson}">
         <span th:text="${entry.key}"></span> = <span th:text="${entry.value}"></span>
     </li>
 </div>
 <br>
 <div style="text-align: center">
     <h3>average grade for lesson</h3>
-    <li th:each="entry: ${lessonAverageGradeMap}">
+    <li th:each="entry: ${averageGradePerLesson}">
         <span th:text="${entry.key}"></span> = <span th:text="${entry.value}"></span>
     </li>
 </div>

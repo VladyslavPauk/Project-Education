@@ -5,9 +5,10 @@ import org.journal.model.Student;
 import java.util.List;
 
 public interface StudentRepository {
-    List<Student> getStudents();
 
     Student getStudent(int id);
+
+    Student getStudent(String email);
 
     void deleteStudent(int id);
 

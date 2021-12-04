@@ -7,6 +7,6 @@ import java.util.List;
 public interface GroupRepository {
     Group getGroup(int id);
 
-    List<Group> getGroups();
+    List<Group> getAllGroups();
 
 }

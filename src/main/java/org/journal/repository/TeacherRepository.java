@@ -6,6 +6,8 @@ import org.journal.model.Teacher;
 public interface TeacherRepository {
     Teacher getTeacher(int id);
 
+    Teacher getTeacher(String email);
+
     void saveTeacher(Teacher teacher);
 
     void deleteTeacher(Teacher teacher);

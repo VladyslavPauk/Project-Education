@@ -4,16 +4,24 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.Generated;
 import org.journal.dto.GroupDTO;
+import org.journal.dto.StudentDTO;
 import org.journal.model.Group;
-import org.journal.model.Lesson;
 import org.journal.model.Student;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2021-12-04T20:28:13+0200",
+    date = "2021-12-07T17:38:32+0200",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 16.0.2 (Oracle Corporation)"
 )
+@Component
 public class GroupMapperImpl implements GroupMapper {
+
+    @Autowired
+    private StudentMapper studentMapper;
+    @Autowired
+    private TeacherMapper teacherMapper;
 
     @Override
     public GroupDTO toGroupDTO(Group group) {
@@ -23,41 +31,24 @@ public class GroupMapperImpl implements GroupMapper {
 
         GroupDTO groupDTO = new GroupDTO();
 
+        groupDTO.setStudentSet( studentSetToStudentDTOSet( group.getStudentSet() ) );
         groupDTO.setId( group.getId() );
         groupDTO.setName( group.getName() );
-        Set<Student> set = group.getStudentSet();
-        if ( set != null ) {
-            groupDTO.setStudentSet( new HashSet<Student>( set ) );
-        }
-        groupDTO.setTeacher( group.getTeacher() );
-        Set<Lesson> set1 = group.getLessonSet();
-        if ( set1 != null ) {
-            groupDTO.setLessonSet( new HashSet<Lesson>( set1 ) );
-        }
+        groupDTO.setTeacher( teacherMapper.toTeacherDTO( group.getTeacher() ) );
 
         return groupDTO;
     }
 
-    @Override
-    public Group groupDTOtoGroup(GroupDTO groupDTO) {
-        if ( groupDTO == null ) {
+    protected Set<StudentDTO> studentSetToStudentDTOSet(Set<Student> set) {
+        if ( set == null ) {
             return null;
         }
 
-        Group group = new Group();
-
-        Set<Lesson> set = groupDTO.getLessonSet();
-        if ( set != null ) {
-            group.setLessonSet( new HashSet<Lesson>( set ) );
-        }
-        group.setTeacher( groupDTO.getTeacher() );
-        group.setId( groupDTO.getId() );
-        group.setName( groupDTO.getName() );
-        Set<Student> set1 = groupDTO.getStudentSet();
-        if ( set1 != null ) {
-            group.setStudentSet( new HashSet<Student>( set1 ) );
+        Set<StudentDTO> set1 = new HashSet<StudentDTO>( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );
+        for ( Student student : set ) {
+            set1.add( studentMapper.toStudentDTOWithoutGroup( student ) );
         }
 
-        return group;
+        return set1;
     }
 }

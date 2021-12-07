@@ -1,7 +1,6 @@
 package org.journal.controller;
 
-import org.journal.dto.mapper.MapStructMapper;
-import org.journal.repository.StudentRepositoryImp;
+import org.journal.dto.mapper.GroupMapper;
 import org.journal.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,8 +12,9 @@ import org.springframework.web.bind.annotation.*;
 public class GroupController {
     @Autowired
     private GroupService groupService;
-    @Autowired
-    private MapStructMapper mapStructMapper;
+
+
+
 
     @GetMapping("/{id}")
     public String getGroup(@PathVariable("id") int id, Model model) {

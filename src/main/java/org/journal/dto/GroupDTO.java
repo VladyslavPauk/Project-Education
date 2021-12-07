@@ -1,17 +1,15 @@
 package org.journal.dto;
 
-import org.journal.model.Lesson;
-import org.journal.model.Student;
-import org.journal.model.Teacher;
+
 import java.util.Set;
 
 public class GroupDTO {
 
     private int id;
     private String name;
-    private Set<Student> studentSet;
-    private Teacher teacher;
-    private Set<Lesson> lessonSet;
+    private Set<StudentDTO> studentSet;
+    private TeacherDTO teacher;
+    private Set<LessonDTO> lessonSet;
 
 
     public int getId() {
@@ -30,27 +28,27 @@ public class GroupDTO {
         this.name = name;
     }
 
-    public Set<Student> getStudentSet() {
+    public Set<StudentDTO> getStudentSet() {
         return studentSet;
     }
 
-    public void setStudentSet(Set<Student> studentSet) {
+    public void setStudentSet(Set<StudentDTO> studentSet) {
         this.studentSet = studentSet;
     }
 
-    public Teacher getTeacher() {
+    public TeacherDTO getTeacher() {
         return teacher;
     }
 
-    public void setTeacher(Teacher teacher) {
+    public void setTeacher(TeacherDTO teacher) {
         this.teacher = teacher;
     }
 
-    public Set<Lesson> getLessonSet() {
+    public Set<LessonDTO> getLessonSet() {
         return lessonSet;
     }
 
-    public void setLessonSet(Set<Lesson> lessonSet) {
+    public void setLessonSet(Set<LessonDTO> lessonSet) {
         this.lessonSet = lessonSet;
     }
 }

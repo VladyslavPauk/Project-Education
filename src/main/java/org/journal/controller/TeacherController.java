@@ -1,6 +1,5 @@
 package org.journal.controller;
 
-import org.journal.dto.mapper.MapStructMapper;
 import org.journal.model.Teacher;
 import org.journal.service.GroupService;
 import org.journal.service.TeacherService;
@@ -17,8 +16,7 @@ public class TeacherController {
     private TeacherService teacherService;
     @Autowired
     private GroupService groupService;
-    @Autowired
-    private MapStructMapper mapStructMapper;
+
 
     @GetMapping("/{id}")
     public String getTeacher(@PathVariable("id") int id, Model model) {

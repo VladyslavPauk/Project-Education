@@ -1,7 +1,6 @@
 package org.journal.dto;
 
-import org.journal.model.Grade;
-import org.journal.model.Group;
+
 import java.util.Set;
 
 public class StudentDTO {
@@ -11,8 +10,8 @@ public class StudentDTO {
     private String password;
     private String email;
     private String surname;
-    private Group group;
-    private Set<Grade> gradeSet;
+    private GroupDTO group;
+    private Set<GradeDTO> gradeSet;
 
 
     public int getId() {
@@ -55,19 +54,19 @@ public class StudentDTO {
         this.surname = surname;
     }
 
-    public Group getGroup() {
+    public GroupDTO getGroup() {
         return group;
     }
 
-    public void setGroup(Group group) {
+    public void setGroup(GroupDTO group) {
         this.group = group;
     }
 
-    public Set<Grade> getGradeSet() {
+    public Set<GradeDTO> getGradeSet() {
         return gradeSet;
     }
 
-    public void setGradeSet(Set<Grade> gradeSet) {
+    public void setGradeSet(Set<GradeDTO> gradeSet) {
         this.gradeSet = gradeSet;
     }
 }

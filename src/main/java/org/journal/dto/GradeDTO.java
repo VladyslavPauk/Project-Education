@@ -1,16 +1,14 @@
 package org.journal.dto;
 
-import org.journal.model.Lesson;
-import org.journal.model.Student;
-import org.journal.model.Teacher;
+
 
 public class GradeDTO {
 
     private int id;
     private int value;
-    private Lesson lesson;
-    private Student student;
-    private Teacher teacher;
+    private LessonDTO lesson;
+    private StudentDTO student;
+    private TeacherDTO teacher;
 
 
     public int getId() {
@@ -29,27 +27,27 @@ public class GradeDTO {
         this.value = value;
     }
 
-    public Lesson getLesson() {
+    public LessonDTO getLesson() {
         return lesson;
     }
 
-    public void setLesson(Lesson lesson) {
+    public void setLesson(LessonDTO lesson) {
         this.lesson = lesson;
     }
 
-    public Student getStudent() {
+    public StudentDTO getStudent() {
         return student;
     }
 
-    public void setStudent(Student student) {
+    public void setStudent(StudentDTO student) {
         this.student = student;
     }
 
-    public Teacher getTeacher() {
+    public TeacherDTO getTeacher() {
         return teacher;
     }
 
-    public void setTeacher(Teacher teacher) {
+    public void setTeacher(TeacherDTO teacher) {
         this.teacher = teacher;
     }
 }

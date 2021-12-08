@@ -10,6 +10,10 @@ public class GradeDTO {
     private StudentDTO student;
     private TeacherDTO teacher;
 
+    @Override
+    public String toString() {
+        return " " + value;
+    }
 
     public int getId() {
         return id;

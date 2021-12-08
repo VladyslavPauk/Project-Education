@@ -1,35 +1,30 @@
 package org.journal.dto.mapper;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import javax.annotation.Generated;
-import org.journal.dto.GradeDTO;
 import org.journal.dto.GroupDTO;
 import org.journal.dto.LessonDTO;
-import org.journal.dto.StudentDTO;
 import org.journal.dto.TeacherDTO;
-import org.journal.model.Grade;
 import org.journal.model.Group;
 import org.journal.model.Lesson;
-import org.journal.model.Student;
 import org.journal.model.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2021-12-07T17:38:32+0200",
+    date = "2021-12-08T21:05:21+0200",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 16.0.2 (Oracle Corporation)"
 )
 @Component
 public class TeacherMapperImpl implements TeacherMapper {
 
     @Autowired
-    private LessonMapper lessonMapper;
+    private GroupMapper groupMapper;
     @Autowired
-    private GradeMapper gradeMapper;
+    private LessonMapper lessonMapper;
 
     @Override
     public TeacherDTO toTeacherDTO(Teacher teacher) {
@@ -49,7 +44,24 @@ public class TeacherMapperImpl implements TeacherMapper {
     }
 
     @Override
-    public Teacher teacherDTOtoTeacher(TeacherDTO teacherDTO) {
+    public Map<GroupDTO, Set<LessonDTO>> toLessonsPerGroupDTO(Map<Group, Set<Lesson>> map) {
+        if ( map == null ) {
+            return null;
+        }
+
+        Map<GroupDTO, Set<LessonDTO>> map1 = new HashMap<GroupDTO, Set<LessonDTO>>( Math.max( (int) ( map.size() / .75f ) + 1, 16 ) );
+
+        for ( java.util.Map.Entry<Group, Set<Lesson>> entry : map.entrySet() ) {
+            GroupDTO key = groupMapper.toGroupDTOWithoutEntity( entry.getKey() );
+            Set<LessonDTO> value = lessonMapper.toLessonDTOSet( entry.getValue() );
+            map1.put( key, value );
+        }
+
+        return map1;
+    }
+
+    @Override
+    public Teacher teacherDTotoTeacher(TeacherDTO teacherDTO) {
         if ( teacherDTO == null ) {
             return null;
         }
@@ -61,122 +73,7 @@ public class TeacherMapperImpl implements TeacherMapper {
         teacher.setSurname( teacherDTO.getSurname() );
         teacher.setEmail( teacherDTO.getEmail() );
         teacher.setPassword( teacherDTO.getPassword() );
-        teacher.setGroupSet( groupDTOSetToGroupSet( teacherDTO.getGroupSet() ) );
-        teacher.setLessonList( lessonDTOListToLessonList( teacherDTO.getLessonList() ) );
-        teacher.setGradeList( gradeDTOListToGradeList( teacherDTO.getGradeList() ) );
 
         return teacher;
-    }
-
-    protected Set<Lesson> lessonDTOSetToLessonSet(Set<LessonDTO> set) {
-        if ( set == null ) {
-            return null;
-        }
-
-        Set<Lesson> set1 = new HashSet<Lesson>( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );
-        for ( LessonDTO lessonDTO : set ) {
-            set1.add( lessonMapper.lessonDTOtoLesson( lessonDTO ) );
-        }
-
-        return set1;
-    }
-
-    protected Set<Grade> gradeDTOSetToGradeSet(Set<GradeDTO> set) {
-        if ( set == null ) {
-            return null;
-        }
-
-        Set<Grade> set1 = new HashSet<Grade>( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );
-        for ( GradeDTO gradeDTO : set ) {
-            set1.add( gradeMapper.gradeDTOtoGrade( gradeDTO ) );
-        }
-
-        return set1;
-    }
-
-    protected Student studentDTOToStudent(StudentDTO studentDTO) {
-        if ( studentDTO == null ) {
-            return null;
-        }
-
-        Student student = new Student();
-
-        student.setId( studentDTO.getId() );
-        student.setName( studentDTO.getName() );
-        student.setPassword( studentDTO.getPassword() );
-        student.setEmail( studentDTO.getEmail() );
-        student.setSurname( studentDTO.getSurname() );
-        student.setGroup( groupDTOToGroup( studentDTO.getGroup() ) );
-        student.setGradeSet( gradeDTOSetToGradeSet( studentDTO.getGradeSet() ) );
-
-        return student;
-    }
-
-    protected Set<Student> studentDTOSetToStudentSet(Set<StudentDTO> set) {
-        if ( set == null ) {
-            return null;
-        }
-
-        Set<Student> set1 = new HashSet<Student>( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );
-        for ( StudentDTO studentDTO : set ) {
-            set1.add( studentDTOToStudent( studentDTO ) );
-        }
-
-        return set1;
-    }
-
-    protected Group groupDTOToGroup(GroupDTO groupDTO) {
-        if ( groupDTO == null ) {
-            return null;
-        }
-
-        Group group = new Group();
-
-        group.setLessonSet( lessonDTOSetToLessonSet( groupDTO.getLessonSet() ) );
-        group.setTeacher( teacherDTOtoTeacher( groupDTO.getTeacher() ) );
-        group.setId( groupDTO.getId() );
-        group.setName( groupDTO.getName() );
-        group.setStudentSet( studentDTOSetToStudentSet( groupDTO.getStudentSet() ) );
-
-        return group;
-    }
-
-    protected Set<Group> groupDTOSetToGroupSet(Set<GroupDTO> set) {
-        if ( set == null ) {
-            return null;
-        }
-
-        Set<Group> set1 = new HashSet<Group>( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );
-        for ( GroupDTO groupDTO : set ) {
-            set1.add( groupDTOToGroup( groupDTO ) );
-        }
-
-        return set1;
-    }
-
-    protected List<Lesson> lessonDTOListToLessonList(List<LessonDTO> list) {
-        if ( list == null ) {
-            return null;
-        }
-
-        List<Lesson> list1 = new ArrayList<Lesson>( list.size() );
-        for ( LessonDTO lessonDTO : list ) {
-            list1.add( lessonMapper.lessonDTOtoLesson( lessonDTO ) );
-        }
-
-        return list1;
-    }
-
-    protected List<Grade> gradeDTOListToGradeList(List<GradeDTO> list) {
-        if ( list == null ) {
-            return null;
-        }
-
-        List<Grade> list1 = new ArrayList<Grade>( list.size() );
-        for ( GradeDTO gradeDTO : list ) {
-            list1.add( gradeMapper.gradeDTOtoGrade( gradeDTO ) );
-        }
-
-        return list1;
     }
 }

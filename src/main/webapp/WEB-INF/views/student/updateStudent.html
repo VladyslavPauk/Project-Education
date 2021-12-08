@@ -6,7 +6,6 @@
 </head>
 <body>
 <form th:method="PUT" th:action="@{/student/{id}(id=${studentToBeUpdate.getId()})}" th:object="${studentToBeUpdate}">
-    <input type="hidden" name="id" value="${studentToBeUpdate.getId()}">
     <label for="name"> Enter your new name</label><input type="text" th:field="*{name}" id="name">
     <label for="surname"> Enter your new surname</label><input type="text" th:field="*{surname}" id="surname">
     <label for="email"> Enter your new email</label><input type="email" th:field="*{email}" id="email">

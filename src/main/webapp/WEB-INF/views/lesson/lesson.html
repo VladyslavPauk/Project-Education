@@ -9,7 +9,7 @@
 <br>
     <li style="text-align: center" th:each="entry: ${gradesPerLessonInGroup}">
         <form th:method="post" th:action="@{/group/{groupId}/student/{studentId}/lesson/{lessonId}/addGrade
-        (groupId=${entry.key.getGroup().id}, studentId=${entry.key.getId()}, lessonId=${lesson.getId()})}">
+        (groupId=${group.getId()}, studentId=${entry.key.getId()}, lessonId=${lesson.getId()})}">
 
         <span th:text="${entry.key}"></span> = <span th:text="${entry.value}"></span>
     <label for="grade">add grade</label><input type="number" name="grade" id="grade">

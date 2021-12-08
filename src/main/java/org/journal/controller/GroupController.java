@@ -12,19 +12,21 @@ import org.springframework.web.bind.annotation.*;
 public class GroupController {
     @Autowired
     private GroupService groupService;
+    @Autowired
+    GroupMapper groupMapper;
 
 
 
 
     @GetMapping("/{id}")
     public String getGroup(@PathVariable("id") int id, Model model) {
-        model.addAttribute("group", groupService.getGroup(id));
+        model.addAttribute("group", groupMapper.toGroupDTO(groupService.getGroup(id)));
         return "group/group";
     }
 
     @GetMapping
     public String getAllGroups(Model model) {
-        model.addAttribute("groups", groupService.getAllGroups());
+        model.addAttribute("groups", groupMapper.toGroupDtoList(groupService.getAllGroups()));
         return "group/groups";
     }
 

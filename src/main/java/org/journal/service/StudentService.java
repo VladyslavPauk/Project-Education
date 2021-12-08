@@ -19,7 +19,7 @@ public interface StudentService {
 
     void deleteStudent(int id);
 
-    void updateStudent(Student student, int groupId);
+    void updateStudent(Student student, int groupId, int studentId);
 
     void saveStudent(Student student, int groupId);
 

@@ -13,6 +13,10 @@ public class StudentDTO {
     private GroupDTO group;
     private Set<GradeDTO> gradeSet;
 
+    @Override
+    public String toString() {
+        return " " + name + " " + surname;
+    }
 
     public int getId() {
         return id;

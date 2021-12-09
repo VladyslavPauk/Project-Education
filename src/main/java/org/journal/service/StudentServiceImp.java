@@ -34,9 +34,8 @@ public class StudentServiceImp implements StudentService {
     }
 
     @Override
-    public void updateStudent(Student student, int groupId, int studentId) {
+    public void updateStudent(Student student, int groupId) {
         student.setGroup(groupService.getGroup(groupId));
-        student.setId(studentId);
         studentRepository.updateStudent(student);
     }
 

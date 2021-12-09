@@ -62,8 +62,8 @@ public class StudentController {
     }
 
     @PutMapping("/{id}")
-    public String updateStudent(@ModelAttribute StudentDTO student, @PathVariable("id") int studentId, @RequestParam("id") int groupId) {
-        studentService.updateStudent(studentMapper.studentDTOtoStudent(student), groupId, studentId);
+    public String updateStudent(@ModelAttribute StudentDTO student, @PathVariable("id") int studentId, @RequestParam("groupId") int groupId) {
+        studentService.updateStudent(studentMapper.studentDTOtoStudent(student), groupId);
         return "redirect:/student/" + studentId;
     }
 }

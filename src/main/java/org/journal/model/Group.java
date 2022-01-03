@@ -1,6 +1,7 @@
 package org.journal.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -27,6 +28,18 @@ public class Group {
     private Set<Lesson> lessonSet;
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Group group = (Group) o;
+        return id == group.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
     public Set<Lesson> getLessonSet() {
         return lessonSet;
